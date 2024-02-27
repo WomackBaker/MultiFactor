@@ -24,10 +24,7 @@ def verify_image():
         # Saving temporary image for the uploaded file
         temp_img1_path = "temp_img1.jpg"
         img1.save(temp_img1_path)
-        
-        # Define the path to the image in the 'images' folder to compare against
-        img2_path = os.path.join('images', 'img2.jpg')  # Adjust 'img2.jpg' as necessary
-        
+        img2_path = os.path.join(os.getcwd(), 'randomperson.jpg')
         # Using DeepFace to verify the images
         result = DeepFace.verify(img1_path=temp_img1_path, img2_path=img2_path)
         

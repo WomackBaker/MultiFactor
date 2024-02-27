@@ -25,9 +25,8 @@ def verify_voice():
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], voice_file.filename)
         voice_file.save(filepath)
 
-        # Here, you would add the code to send the file to the voice authentication service
-        # and get the verification result.
-        # For the sake of this example, let's just return a mock response.
+        #TODO: Implement the verification logic
+        
         is_verified = True  # This should be replaced with the actual verification logic
 
         return jsonify({"is_verified": is_verified})
