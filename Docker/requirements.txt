@@ -1,3 +1,9 @@
 flask
 deepface
-flask
+librosa
+scipy
+numpy
+python_speech_features
+keras
+tensorflow
+pandas

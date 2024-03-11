@@ -1,10 +1,11 @@
 from flask import Flask, request, jsonify
+import voice_auth
 import os
 
 app = Flask(__name__)
 
 # Directory where uploaded files will be saved
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = 'voiceuploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Ensure the upload directory exists
@@ -21,15 +22,29 @@ def verify_voice():
         return jsonify({"error": "No selected file"}), 400
     
     if voice_file:
-        # Save the file
+
+        result = voice_auth.recognize(voice_file)
+    try:
+        result = voice_auth.recognize(voice_file)
+        return jsonify({'result': result}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/add-voice', methods=['POST'])
+def verify_voice():
+    voice_file = request.files['voice']
+    name = request.form.get('name')
+    if voice_file.filename == '':
+        return jsonify({"error": "No selected file"}), 400
+    
+    if voice_file:
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], voice_file.filename)
         voice_file.save(filepath)
-
-        #TODO: Implement the verification logic
-        
-        is_verified = True  # This should be replaced with the actual verification logic
-
-        return jsonify({"is_verified": is_verified})
+    try:
+        result= voice_auth.enroll(name, voice_file)
+        return jsonify({'result': result}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)

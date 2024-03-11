@@ -1,6 +1,8 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLabel, QFileDialog, QMessageBox
 import requests
+import sounddevice as sd
+from scipy.io.wavfile import write
 
 class PhotoSenderGUI(QWidget):
     def __init__(self):
@@ -8,8 +10,8 @@ class PhotoSenderGUI(QWidget):
         self.initUI()
 
     def initUI(self):
-        self.setWindowTitle('Photo Sender')
-        self.setGeometry(100, 100, 200, 100)
+        self.setWindowTitle('Authenticate')
+        self.setGeometry(200, 200, 300, 200)
 
         layout = QVBoxLayout()
 
@@ -20,6 +22,10 @@ class PhotoSenderGUI(QWidget):
         btn.clicked.connect(self.openFileNameDialog)
         layout.addWidget(btn)
 
+        btn_record = QPushButton('Record Message', self)
+        btn_record.clicked.connect(self.recordMessage)
+        layout.addWidget(btn_record)
+
         self.setLayout(layout)
 
     def openFileNameDialog(self):
@@ -27,6 +33,27 @@ class PhotoSenderGUI(QWidget):
         fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()", "", "All Files (*);;JPEG (*.jpg;*.jpeg);;PNG (*.png)", options=options)
         if fileName:
             self.sendPhoto(fileName)
+
+    def recordMessage(self):
+        fs = 44100
+        seconds = 5
+
+        myrecording = sd.rec(int(seconds * fs), samplerate=fs, channels=2)
+        sd.wait()
+        write('output.wav', fs, myrecording)
+        self.sendAudio('output.wav')
+
+    def sendAudio(self, file_path):
+        url = 'http://localhost:5000/verify-audio'
+        try:
+            files = {'audio': open(file_path, 'rb')}
+            response = requests.post(url, files=files)
+            if response.status_code == 200:
+                self.showMessage("Audio sent successfully")
+            else:
+                self.showMessage(f"Error: {response.status_code}")
+        except requests.exceptions.RequestException as e:
+            self.showMessage("Error: No response")
 
     def sendPhoto(self, file_path):
         url = 'http://localhost:5000/verify-image'
@@ -49,6 +76,8 @@ class PhotoSenderGUI(QWidget):
         msgBox.setWindowTitle("Photo Upload Status")
         msgBox.setStandardButtons(QMessageBox.Ok)
         msgBox.exec_()
+
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = PhotoSenderGUI()
