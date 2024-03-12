@@ -1,18 +1,12 @@
-#IMPORT SYSTEM FILES
-import argparse
-import scipy.io.wavfile as wavfile
-import traceback as tb
-import os
-import sys
 import numpy as np
-import pandas as pd
-from scipy.spatial.distance import cdist, euclidean, cosine 
+from scipy.spatial.distance import euclidean, cosine 
 import warnings
 from keras.models import load_model
 import logging
 logging.basicConfig(level=logging.ERROR)
 warnings.filterwarnings("ignore")
 import os
+import tempfile
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # FATAL
 logging.getLogger('tensorflow').setLevel(logging.FATAL)
@@ -51,9 +45,13 @@ def enroll(name,file):
 
 def recognize(file):
     """Recognize the input audio file by comparing to saved users' voice prints
-        inputs: str (Path to audio file of unknown person to recognize)
+        inputs: file (Audio file of unknown person to recognize)
         outputs: str (Name of the person recognized)"""
     
+    # Save the file to a temporary file
+    temp_file = tempfile.NamedTemporaryFile(delete=False)
+    file.save(temp_file.name)
+
     if os.path.exists(p.EMBED_LIST_FILE):
         embeds = os.listdir(p.EMBED_LIST_FILE)
     if len(embeds) is 0:
@@ -65,18 +63,19 @@ def recognize(file):
         return False
         
     distances = {}
-    test_result = get_embedding(model, file, p.MAX_SEC)
+    test_result = get_embedding(model, temp_file.name, p.MAX_SEC)
+    print(test_result)
     test_embs = np.array(test_result.tolist())
     for emb in embeds:
         enroll_embs = np.load(os.path.join(p.EMBED_LIST_FILE,emb))
         speaker = emb.replace(".npy","")
         distance = euclidean(test_embs, enroll_embs)
         distances.update({speaker:distance})
-    if min(list(distances.values()))<p.THRESHOLD:
-        return True
-    else:
+    max_distance = max(list(distances.values()))
+    print(f"Max distance: {max_distance}, Threshold: {p.THRESHOLD}")
+    if max_distance < p.THRESHOLD:
         return False
-        
-
+    else:
+        return True
 
 
