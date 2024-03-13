@@ -1,5 +1,12 @@
+#IMPORT SYSTEM FILES
+import argparse
+import scipy.io.wavfile as wavfile
+import traceback as tb
+import os
+import sys
 import numpy as np
-from scipy.spatial.distance import euclidean, cosine 
+import pandas as pd
+from scipy.spatial.distance import cdist, euclidean, cosine 
 import warnings
 from keras.models import load_model
 import logging
@@ -71,11 +78,13 @@ def recognize(file):
         speaker = emb.replace(".npy","")
         distance = euclidean(test_embs, enroll_embs)
         distances.update({speaker:distance})
-    max_distance = max(list(distances.values()))
-    print(f"Max distance: {max_distance}, Threshold: {p.THRESHOLD}")
-    if max_distance < p.THRESHOLD:
-        return False
+    if  min(list(distances.values()))<p.THRESHOLD:
+        if (min(distances, key=distances.get) == "unknown"):
+            return False
+        return min(distances, key=distances.get)
     else:
-        return True
+        return False
 
 
+def get_extension(filename):
+    return os.path.splitext(filename)[1][1:]

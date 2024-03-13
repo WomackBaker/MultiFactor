@@ -17,6 +17,7 @@ def verify_voice():
         return jsonify({"error": "No voice file part"}), 400
     
     voice_file = request.files['voice']
+    name = request.form.get('name')
     
     if voice_file.filename == '':
         return jsonify({"error": "No selected file"}), 400
@@ -24,10 +25,13 @@ def verify_voice():
     if voice_file:
         try:
             result = voice_auth.recognize(voice_file)
-            return jsonify({'result': result}), 200
+            if result == name:
+                return jsonify({'result': result}), 200
+            else:
+                return jsonify({'error': 'Voice not recognized'}), 400
         except Exception as e:
             return jsonify({'error': str(e)}), 500
-
+        
 @app.route('/add_voice', methods=['POST'])
 def add_voice():
     voice_file = request.files['voice']

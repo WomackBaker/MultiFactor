@@ -23,7 +23,7 @@ class PhotoSenderGUI(QWidget):
         layout.addWidget(btn)
 
         btn_record = QPushButton('Record Message', self)
-        btn_record.clicked.connect(self.recordMessage)
+        btn_record.clicked.connect(self.openFileNameDialog2)
         layout.addWidget(btn_record)
 
         self.setLayout(layout)
@@ -33,23 +33,24 @@ class PhotoSenderGUI(QWidget):
         fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()", "", "All Files (*);;JPEG (*.jpg;*.jpeg);;PNG (*.png)", options=options)
         if fileName:
             self.sendPhoto(fileName)
-
-    def recordMessage(self):
-        fs = 44100
-        seconds = 5
-
-        myrecording = sd.rec(int(seconds * fs), samplerate=fs, channels=2)
-        sd.wait()
-        write('output.wav', fs, myrecording)
-        self.sendAudio('output.wav')
+    def openFileNameDialog2(self):
+        options = QFileDialog.Options()
+        fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()", "", "All Files (*);;JPEG (*.jpg;*.jpeg);;PNG (*.png)", options=options)
+        if fileName:
+            self.sendAudio(fileName)
 
     def sendAudio(self, file_path):
-        url = 'http://localhost:5000/verify-audio'
+        url = 'http://localhost:5000//verify_voice'
         try:
-            files = {'audio': open(file_path, 'rb')}
-            response = requests.post(url, files=files)
+            files = {'voice': open(file_path, 'rb')}
+            data = {'name': 'Baker'}
+            response = requests.post(url, files=files, data=data)
             if response.status_code == 200:
-                self.showMessage("Audio sent successfully")
+                self.showMessage("Verified")
+            elif response.status_code == 500:
+                self.showMessage("Error")
+            elif response.status_code == 400:
+                self.showMessage("Unverified")
             else:
                 self.showMessage(f"Error: {response.status_code}")
         except requests.exceptions.RequestException as e:
