@@ -15,15 +15,24 @@ class PhotoSenderGUI(QWidget):
 
         layout = QVBoxLayout()
 
-        self.label = QLabel('Select a photo to send', self)
-        layout.addWidget(self.label)
+        btn_record = QPushButton('Random', self)
+        #TODO btn_record.clicked.connect(self.openFileNameDialog2)
+        layout.addWidget(btn_record)
 
-        btn = QPushButton('Choose Photo', self)
+        btn = QPushButton('Facial Recognition', self)
         btn.clicked.connect(self.openFileNameDialog)
         layout.addWidget(btn)
 
-        btn_record = QPushButton('Record Message', self)
+        btn_record = QPushButton('Voice Recognition', self)
         btn_record.clicked.connect(self.openFileNameDialog2)
+        layout.addWidget(btn_record)
+
+        btn_record = QPushButton('SMS', self)
+        #TODO btn_record.clicked.connect(self.openFileNameDialog2)
+        layout.addWidget(btn_record)
+
+        btn_record = QPushButton('Password', self)
+        #TODO btn_record.clicked.connect(self.openFileNameDialog2)
         layout.addWidget(btn_record)
 
         self.setLayout(layout)

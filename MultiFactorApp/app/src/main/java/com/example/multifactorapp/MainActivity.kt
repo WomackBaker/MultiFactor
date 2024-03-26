@@ -1,5 +1,8 @@
 package com.example.multifactorapp
 
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.multifactorapp.ui.theme.MultifactorAppTheme
@@ -41,6 +45,31 @@ fun ButtonsScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // Random Button
+        Button(
+            onClick = { /* TODO: Implement action */ },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .height(60.dp)
+        ) {
+            Text("Random")
+        }
+
+        // Face Button
+        val context = LocalContext.current
+        Button(
+            onClick = {context.getActivity()?.let {
+                ImagePickerActivity.start(it)
+            }},
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .height(60.dp)
+        ) {
+            Text("Facial Recognition")
+        }
+
         // Voice Button
         Button(
             onClick = { /* TODO: Implement action */ },
@@ -49,10 +78,10 @@ fun ButtonsScreen() {
                 .padding(8.dp)
                 .height(60.dp)
         ) {
-            Text("Voice")
+            Text("Voice Recognition")
         }
 
-        // Face Button
+        // SMS Button
         Button(
             onClick = { /* TODO: Implement action */ },
             modifier = Modifier
@@ -60,15 +89,29 @@ fun ButtonsScreen() {
                 .padding(8.dp)
                 .height(60.dp)
         ) {
-            Text("Face")
+            Text("SMS")
+        }
+
+        // Pass Button
+        Button(
+            onClick = { /* TODO: Implement action */ },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .height(60.dp)
+        ) {
+            Text("Password")
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ButtonsScreenPreview() {
-    MultifactorAppTheme {
-        ButtonsScreen()
-    }
-}
+fun Context.getActivity(): Activity? {
+            var context = this
+            while (context is ContextWrapper) {
+                if (context is Activity) {
+                    return context
+                }
+                context = context.baseContext
+            }
+            return null
+        }
