@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.10
+FROM python:3.11.8
 
 # Set the working directory in the container
 WORKDIR /app
@@ -7,16 +7,24 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
-
+# Install system dependencies for deep learning libraries and audio processing
 RUN apt-get update && apt-get install -y \
-    libgl1-mesa-dev \
-    libglib2.0-0 \
-&& rm -rf /var/lib/apt/lists/*
+    portaudio19-dev \
+    libgl1-mesa-glx \
+    ffmpeg \
+    libsm6 \
+    libxext6 \
+    libxrender-dev
+
+# Install Python dependencies from requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose the port the app runs on
 EXPOSE 5000
 
+# Ensure files and directories created by the web server are accessible and writable
+RUN useradd -m myuser
+USER myuser
+
 # Run the application
-CMD ["python", "face.py"]
+CMD ["python", "voiceface.py"]

@@ -57,9 +57,9 @@ fun ButtonsScreen() {
         }
 
         // Face Button
-        val context = LocalContext.current
+        val Facecontext = LocalContext.current
         Button(
-            onClick = {context.getActivity()?.let {
+            onClick = {Facecontext.getActivity()?.let {
                 ImagePickerActivity.start(it)
             }},
             modifier = Modifier
@@ -71,8 +71,11 @@ fun ButtonsScreen() {
         }
 
         // Voice Button
+        val Voicecontext = LocalContext.current
         Button(
-            onClick = { /* TODO: Implement action */ },
+            onClick = {Voicecontext.getActivity()?.let {
+                VoicePickerActivity.start(it)
+            }},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)

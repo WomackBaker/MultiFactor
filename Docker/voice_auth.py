@@ -62,13 +62,12 @@ def recognize(file):
     if os.path.exists(p.EMBED_LIST_FILE):
         embeds = os.listdir(p.EMBED_LIST_FILE)
     if len(embeds) is 0:
+        print("unknown")
         return False
     try:
         model = load_model(p.MODEL_FILE)
-
     except:
         return False
-        
     distances = {}
     test_result = get_embedding(model, temp_file.name, p.MAX_SEC)
     print(test_result)
@@ -80,7 +79,7 @@ def recognize(file):
         distances.update({speaker:distance})
     if  min(list(distances.values()))<p.THRESHOLD:
         if (min(distances, key=distances.get) == "unknown"):
-            return False
+            print("unknown")
         return min(distances, key=distances.get)
     else:
         return False

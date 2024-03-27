@@ -1,5 +1,5 @@
 flask
-deepface
+DeepFace
 librosa
 scipy
 numpy
@@ -8,3 +8,4 @@ keras
 tensorflow
 pandas
 pyaudio
+tf-keras
