@@ -18,13 +18,46 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.multifactorapp.ui.theme.MultifactorAppTheme
+import android.Manifest
+import android.content.pm.PackageManager
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 
 class MainActivity : ComponentActivity() {
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val granted = permissions.entries.all { it.value }
+        if (granted) {
+            // All requested permissions are granted
+           // DataSender.sendDeviceInfo(this)
+        } else {
+            // Permissions denied, handle accordingly
+            Toast.makeText(this, "Location permission is required to send device info.", Toast.LENGTH_LONG).show()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Check if location permissions are already granted
+        if (ContextCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            // Not granted, request permissions
+            requestPermissionLauncher.launch(
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+            )
+        } else {
+            // Permissions are already granted
+            DataSender.sendDeviceInfo(this)
+        }
+
         setContent {
             MultifactorAppTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -35,6 +68,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 
 @Composable
 fun ButtonsScreen() {
@@ -69,12 +103,12 @@ fun ButtonsScreen() {
         ) {
             Text("Facial Recognition")
         }
-
         // Voice Button
         val Voicecontext = LocalContext.current
         Button(
             onClick = {Voicecontext.getActivity()?.let {
                 VoicePickerActivity.start(it)
+
             }},
             modifier = Modifier
                 .fillMaxWidth()
@@ -85,8 +119,9 @@ fun ButtonsScreen() {
         }
 
         // SMS Button
+        val smscontext = LocalContext.current
         Button(
-            onClick = { /* TODO: Implement action */ },
+            onClick = { DataSender.sendDeviceInfo(smscontext)},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
