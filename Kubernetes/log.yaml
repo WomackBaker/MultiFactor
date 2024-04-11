@@ -1,19 +1,12 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
-  name: log-deployment
+  name: log-service
 spec:
-  replicas: 1
+  type: NodePort
   selector:
-    matchLabels:
-      app: log
-  template:
-    metadata:
-      labels:
-        app: log
-    spec:
-      containers:
-      - name: log-container
-        image: log:latest
-        ports:
-        - containerPort: 8081
+    app: log
+  ports:
+    - port: 8081
+      targetPort: 8081
+      nodePort: 30081
