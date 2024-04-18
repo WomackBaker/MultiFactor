@@ -7,6 +7,7 @@ app = Flask(__name__)
 @app.route('/data', methods=['POST'])
 def GetData():
     data = request.get_json()
+    print(data)
     name = data.pop('user', None)
     if data:
         try:
@@ -27,4 +28,4 @@ def GetData():
         return jsonify({"message": "No data received"}), 400
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8081)
+    app.run(host='0.0.0.0', port=30081, debug=True)

@@ -16,7 +16,7 @@ import java.io.IOException
 import android.Manifest
 
 object DataSender {
-    fun sendDeviceInfo(context: Context) {
+    fun sendDeviceInfo(context: Context, username: String) {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return
         }
@@ -30,22 +30,26 @@ object DataSender {
         activityManager.getMemoryInfo(memoryInfo)
         val availableMemory = memoryInfo.availMem
         val currentTime = System.currentTimeMillis()
+        val rssi = wifiManager.connectionInfo.rssi
+
+
 
         // Create JSON object
         val jsonObject = JSONObject().apply {
-            put("user", "Baker")
+            put("user", username)
             put("latitude", location?.latitude ?: 9)
             put("longitude", location?.longitude ?: 9)
             put("ipString", ipString)
             put("availableMemory", availableMemory)
             put("currentTime", currentTime)
+            put("rssi", rssi)
         }
 
         val mediaType = "application/json; charset=utf-8".toMediaType()
         val requestBody = RequestBody.create(mediaType, jsonObject.toString())
 
         val request = Request.Builder()
-            .url("http://10.0.2.2:8080/get-data")
+            .url("http://10.0.2.2:30080/get-data")
             .post(requestBody)
             .build()
 

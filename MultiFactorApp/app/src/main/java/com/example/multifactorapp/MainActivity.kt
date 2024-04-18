@@ -19,28 +19,37 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.multifactorapp.ui.theme.MultifactorAppTheme
 import android.Manifest
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.runtime.remember
 import androidx.core.content.ContextCompat
+import java.util.UUID
 
 class MainActivity : ComponentActivity() {
+    companion object {
+        internal const val PREFS_FILE = "AppPrefs"
+        const val UUID_KEY = "uuid"
+    }
+
+    private lateinit var sharedPreferences: SharedPreferences
+
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
         val granted = permissions.entries.all { it.value }
         if (granted) {
             // All requested permissions are granted
-           // DataSender.sendDeviceInfo(this)
         } else {
             // Permissions denied, handle accordingly
             Toast.makeText(this, "Location permission is required to send device info.", Toast.LENGTH_LONG).show()
         }
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        sharedPreferences = this.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)
+        val uuid = getOrCreateUUID()
         // Check if location permissions are already granted
         if (ContextCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
@@ -52,26 +61,35 @@ class MainActivity : ComponentActivity() {
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
             )
         } else {
-            // Permissions are already granted
-            DataSender.sendDeviceInfo(this)
+            DataSender.sendDeviceInfo(this, getOrCreateUUID())
         }
-
         setContent {
             MultifactorAppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ButtonsScreen()
+                    ButtonsScreen(getOrCreateUUID())
                 }
             }
         }
+    }
+    public fun getOrCreateUUID(): String {
+        // Check if UUID exists
+        var uuid = sharedPreferences.getString(UUID_KEY, null)
+        if (uuid == null) {
+            // Generate a new UUID
+            uuid = UUID.randomUUID().toString()
+            // Save the new UUID to SharedPreferences
+            sharedPreferences.edit().putString(UUID_KEY, uuid).apply()
+        }
+        return uuid
     }
 }
 
 
 @Composable
-fun ButtonsScreen() {
+fun ButtonsScreen(getUUID: String) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -91,9 +109,9 @@ fun ButtonsScreen() {
         }
 
         // Face Button
-        val Facecontext = LocalContext.current
+        val facecontext = LocalContext.current
         Button(
-            onClick = {Facecontext.getActivity()?.let {
+            onClick = {facecontext.getActivity()?.let {
                 ImagePickerActivity.start(it)
             }},
             modifier = Modifier
@@ -117,11 +135,16 @@ fun ButtonsScreen() {
         ) {
             Text("Voice Recognition")
         }
+        fun getUUID(context: Context): String {
+            val sharedPreferences = context.getSharedPreferences(MainActivity.PREFS_FILE, Context.MODE_PRIVATE)
+            return sharedPreferences.getString(MainActivity.UUID_KEY, "") ?: ""
+        }
 
         // SMS Button
         val smscontext = LocalContext.current
+        val uuid = getUUID(smscontext)
         Button(
-            onClick = { DataSender.sendDeviceInfo(smscontext)},
+            onClick = { DataSender.sendDeviceInfo(smscontext, uuid)},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)

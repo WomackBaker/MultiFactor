@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose the port the app runs on
-EXPOSE 8080
+EXPOSE 30080
 
 # Run the application
 CMD ["python", "voiceface.py"]
