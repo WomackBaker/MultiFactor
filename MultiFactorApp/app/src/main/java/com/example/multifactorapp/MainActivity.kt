@@ -132,7 +132,9 @@ fun ButtonsScreen() {
 
         // Pass Button
         Button(
-            onClick = { /* TODO: Implement action */ },
+            onClick = {/* TODO do i need smthng like voicecontext if statement*/
+                      PasswordActivity.start(it)
+                      },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
