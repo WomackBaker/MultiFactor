@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
-class PasswordActivity : AppCompatActivity() {
+class TokenActivity : AppCompatActivity() {
 
     /*
     To be determined what goes in here
