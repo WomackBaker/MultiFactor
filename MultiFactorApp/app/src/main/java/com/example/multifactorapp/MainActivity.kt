@@ -132,7 +132,7 @@ fun ButtonsScreen() {
 
         // Pass Button
         Button(
-            onClick = {/* TODO do i need smthng like voicecontext if statement*/
+            onClick = {/* TODO do i need smthng like voicecontext context*/
                       PasswordActivity.start(it)
                       },
             modifier = Modifier
@@ -145,7 +145,7 @@ fun ButtonsScreen() {
 
         // Token Button
         Button(
-            onClick = {/* TODO do i need smthng like voicecontext if statement*/
+            onClick = {/* TODO do i need smthng like voicecontext context*/
                 TokenActivity.start(it)
             },
             modifier = Modifier
