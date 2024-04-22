@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
       - name: log
-        image: bwomack/log:latest
+        image: bwomack/log:latest # Change this to your own image
         ports:
-        - containerPort: 30081
+        - containerPort: 30081 # Update Port
 
 ---
 apiVersion: v1

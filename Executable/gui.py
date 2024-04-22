@@ -4,6 +4,7 @@ import requests
 import sounddevice as sd
 from scipy.io.wavfile import write
 
+# Sends jpeg for facial recognition and sends wav for voice recognition
 class PhotoSenderGUI(QWidget):
     def __init__(self):
         super().__init__()
