@@ -4,6 +4,8 @@ from deepface import DeepFace
 
 app = Flask(__name__)
 
+# Invidual file to run voice recognition using flask
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 def allowed_file(filename):

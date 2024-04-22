@@ -27,6 +27,10 @@ import androidx.compose.runtime.remember
 import androidx.core.content.ContextCompat
 import java.util.UUID
 
+/**
+ * Main activity for the multifactor authentication app.
+ * Handles user interactions and permissions related to device data transmission.
+ */
 class MainActivity : ComponentActivity() {
     companion object {
         internal const val PREFS_FILE = "AppPrefs"
@@ -40,8 +44,10 @@ class MainActivity : ComponentActivity() {
     ) { permissions ->
         val granted = permissions.entries.all { it.value }
         if (granted) {
+            // Permissions are granted, proceed to send device info
             DataSender.sendDeviceInfo(this, getOrCreateUUID())
         } else {
+            // Display a message if location permissions are not granted
             Toast.makeText(this, "Location permission is required to send device info.", Toast.LENGTH_LONG).show()
             DataSender.sendDeviceInfo(this, getOrCreateUUID())
         }
@@ -135,12 +141,16 @@ fun ButtonsScreen(getUUID: String) {
         ) {
             Text("Voice Recognition")
         }
+        /**
+         * Retrieves the UUID stored in SharedPreferences.
+         */
         fun getUUID(context: Context): String {
             val sharedPreferences = context.getSharedPreferences(MainActivity.PREFS_FILE, Context.MODE_PRIVATE)
             return sharedPreferences.getString(MainActivity.UUID_KEY, "") ?: ""
         }
 
         // SMS Button
+        // Button to send device info as an SMS-like feature
         val smscontext = LocalContext.current
         val uuid = getUUID(smscontext)
         Button(
@@ -166,7 +176,9 @@ fun ButtonsScreen(getUUID: String) {
         }
     }
 }
-
+/**
+ * Extension function to get Activity from Context.
+ */
 fun Context.getActivity(): Activity? {
             var context = this
             while (context is ContextWrapper) {

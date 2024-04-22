@@ -43,3 +43,6 @@ def User(Usernum, NumofVariations):
 
 for i in range(NumofUsers):
     data = User(i, NumofVariations)
+
+
+    

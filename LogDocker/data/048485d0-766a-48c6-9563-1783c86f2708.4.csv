@@ -1,0 +1,2 @@
+latitude,longitude,ipString,currentTime,availableMemory,rssi,timezone,Processors,Battery,Vendor,Model,systemPerformance,cpu,accel,gyro,magnet
+37.1934593,-122.137373,10.0.3.52,1713911652287,770174766,-45,America/New_York,4,100,Google,sdk_gphone64_x86_64,3,ranchu,0,4,2
