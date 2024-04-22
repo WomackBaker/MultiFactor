@@ -21,7 +21,7 @@ object VoiceUploader {
                 .build()
 
             val request = Request.Builder()
-                .url("http://10.0.2.2:5000/verify-voice")
+                .url("http://10.0.2.2:30080/verify-voice")
                 .post(requestBody)
                 .build()
 

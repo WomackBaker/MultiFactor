@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 def similar_fake_data(data, num):
     # Generate similar latitude and longitude
     user = data["user"]
-    user = user + str(num)
+    user = user + str("."+str(num+1))
     latitude = float(data["latitude"]) + round(random.uniform(-0.5, 0.5), 6)
     longitude = float(data["longitude"]) + round(random.uniform(-0.5, 0.5), 6)
     

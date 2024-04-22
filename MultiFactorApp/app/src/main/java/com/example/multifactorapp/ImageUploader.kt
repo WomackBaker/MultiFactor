@@ -19,7 +19,7 @@ object ImageUploader {
             .build()
 
         val request = Request.Builder()
-            .url("http://10.0.2.2:5000/verify-image")
+            .url("http://10.0.2.2:30080/verify-image")
             .post(requestBody)
             .build()
 

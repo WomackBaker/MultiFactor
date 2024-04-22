@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
       - name: auth
-        image: bwomack/auth:latest
+        image: bwomack/auth:latest # Change this to your own image
         ports:
-        - containerPort: 30080
+        - containerPort: 30080 # Update Port
 
 ---
 apiVersion: v1

@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 import requests
 app = Flask(__name__)
 
-
+# Invidual file to transfer log data to log server using flask
 @app.route('/get-data', methods=['POST'])
 def GetData():
     

@@ -1,9 +1,13 @@
+# Import necessary libraries
 from flask import Flask, request, jsonify
 from deepface import DeepFace
 import voice_auth
 import requests
 import os
 
+# Runs voice and facial recognition, and sends data to the log server
+
+# Initialize Flask application
 app = Flask(__name__)
 
 # Directory where uploaded files will be saved
@@ -14,10 +18,12 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
+# Function to check if the file has an allowed extension
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+# Route to verify image
 @app.route('/verify-image', methods=['POST'])
 def verify_image():
     # Check if the post request has the file part for img1
@@ -47,6 +53,7 @@ def verify_image():
             os.remove(temp_img1_path)
         return jsonify({'error': str(e)}), 500
     
+# Route to verify voice
 @app.route('/verify-voice', methods=['POST'])
 def verify_voice():
     if 'voice' not in request.files:
@@ -69,6 +76,7 @@ def verify_voice():
         except Exception as e:
             return jsonify({'error': str(e)}), 500
         
+# Route to add voice
 @app.route('/add_voice', methods=['POST'])
 def add_voice():
     voice_file = request.files['voice']
@@ -90,6 +98,7 @@ def add_voice():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+# Route to get data
 @app.route('/get-data', methods=['POST'])
 def GetData():
     
@@ -106,5 +115,7 @@ def GetData():
             return jsonify({"error": str(e)}), 500
     else:
         return jsonify({"message": "No data received"}), 400
+
+# Main function to run the application
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=30080)

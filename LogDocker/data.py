@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 import csv
 import os
-
+# Runs endpoint to receive log information and write to CSV file
 app = Flask(__name__)
-
+# Define the route to receive data
 @app.route('/data', methods=['POST'])
 def GetData():
     data = request.get_json()
@@ -26,6 +26,6 @@ def GetData():
             return jsonify({"error": str(e)}), 500
     else:
         return jsonify({"message": "No data received"}), 400
-
+# Hosts on port 30081
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=30081, debug=True)

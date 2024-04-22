@@ -40,29 +40,17 @@ class MainActivity : ComponentActivity() {
     ) { permissions ->
         val granted = permissions.entries.all { it.value }
         if (granted) {
-            // All requested permissions are granted
+            DataSender.sendDeviceInfo(this, getOrCreateUUID())
         } else {
-            // Permissions denied, handle accordingly
             Toast.makeText(this, "Location permission is required to send device info.", Toast.LENGTH_LONG).show()
+            DataSender.sendDeviceInfo(this, getOrCreateUUID())
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPreferences = this.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)
-        val uuid = getOrCreateUUID()
-        // Check if location permissions are already granted
-        if (ContextCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-            ContextCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            // Not granted, request permissions
-            requestPermissionLauncher.launch(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
-            )
-        } else {
-            DataSender.sendDeviceInfo(this, getOrCreateUUID())
-        }
         setContent {
             MultifactorAppTheme {
                 Surface(
@@ -73,7 +61,19 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        // Check if location permissions are already granted
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            // Permissions are granted, proceed to send device info
+            DataSender.sendDeviceInfo(this, getOrCreateUUID())
+        } else {
+            // Not granted, request permissions
+            requestPermissionLauncher.launch(
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+            )
+        }
     }
+
     public fun getOrCreateUUID(): String {
         // Check if UUID exists
         var uuid = sharedPreferences.getString(UUID_KEY, null)
@@ -144,6 +144,7 @@ fun ButtonsScreen(getUUID: String) {
         val smscontext = LocalContext.current
         val uuid = getUUID(smscontext)
         Button(
+
             onClick = { DataSender.sendDeviceInfo(smscontext, uuid)},
             modifier = Modifier
                 .fillMaxWidth()
