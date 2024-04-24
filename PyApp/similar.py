@@ -1,7 +1,15 @@
-import random
 from datetime import datetime, timedelta
+import time
+import random
 
 def similar_fake_data(data, num):
+    # Convert 'currentTime' from string to Unix timestamp in milliseconds
+    initial_time = datetime.strptime(data["currentTime"], '%Y-%m-%d %H:%M:%S')
+    fake_time = initial_time.replace(
+        hour=random.randint(0, 23),
+        minute=random.randint(0, 59),
+        second=random.randint(0, 59)
+    )
     # Generate similar user
     user = data["user"]
     user = user + str("."+str(num+1))
@@ -12,28 +20,24 @@ def similar_fake_data(data, num):
 
     # Generate a fake IP address (using the last two octets from the initial one)
     ip_octets = data["ipString"].split('.')
-    new_ip_address = f"{ip_octets[0]}.{ip_octets[1]}.{random.randint(0, 255)}.{random.randint(0, 255)}"
-
-    # Generate a fake time close to the initial time
-    initial_time = datetime.fromtimestamp(data["currentTime"] / 1000.0)
-    fake_time = initial_time + timedelta(days=random.randint(-5, 5), hours=random.randint(-1, 1), minutes=random.randint(-30, 30))
+    new_ip_address = f"{ip_octets[0]}.{ip_octets[1]}.{ip_octets[2]}.{random.randint(0, 255)}"
 
     # Generate similar availableMemory, rssi, Processors, Battery, systemPerformance, accel, gyro, and magnet
     availableMemory = data["availableMemory"] + random.randint(-100000000, 100000000)
     rssi = data["rssi"] + random.randint(-10, 10)
-    Processors = data["Processors"] + random.randint(-1, 1)
+    Processors = data["Processors"]
     Battery = min(100, max(0, data["Battery"] + random.randint(-10, 10)))
     systemPerformance = data["systemPerformance"] + random.randint(-1, 1)
-    accel = data["accel"] + random.randint(-1, 1)
-    gyro = data["gyro"] + random.randint(-1, 1)
-    magnet = data["magnet"] + random.randint(-1, 1)
+    accel = data["accel"]
+    gyro = data["gyro"]
+    magnet = data["magnet"]
 
     return {
         "user": user,
         "latitude": latitude,
         "longitude": longitude,
         "ipString": new_ip_address,
-        "currentTime": int(fake_time.timestamp() * 1000),
+        "currentTime": fake_time.strftime('%Y-%m-%d %H:%M:%S'),
         "availableMemory": availableMemory,
         "rssi": rssi,
         "timezone": data["timezone"],
