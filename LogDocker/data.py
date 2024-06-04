@@ -13,7 +13,6 @@ def GetData():
         try:
             file_path = os.path.join('data', name + '.csv')
             file_exists = os.path.isfile(file_path)
-            
             mode = 'a' if file_exists else 'w'
             with open(file_path, mode, newline='') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=data.keys())

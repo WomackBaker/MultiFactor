@@ -1,6 +1,5 @@
 import android.app.Activity
 import android.content.Context
-import android.location.LocationManager
 import android.net.wifi.WifiManager
 import android.text.format.Formatter
 import android.app.ActivityManager
@@ -13,12 +12,14 @@ import org.json.JSONObject
 import java.io.IOException
 import android.Manifest
 import android.hardware.Sensor
-import android.location.Location
 import android.os.Build
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.LocationServices
 import java.util.TimeZone
-import com.google.android.gms.tasks.Task
+import java.text.SimpleDateFormat
+import java.util.Date
+import android.content.res.Resources
+import android.hardware.SensorManager
 
 object DataSender {
 
@@ -29,7 +30,8 @@ object DataSender {
      */
     fun sendDeviceInfo(context: Context, username: String) {
         // Access the Wi-Fi system service to get network details
-        val wifiManager = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        val wifiManager =
+            context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
         val ipAddress = wifiManager.connectionInfo.ipAddress
         val ipString = Formatter.formatIpAddress(ipAddress)
 
@@ -41,11 +43,16 @@ object DataSender {
 
         // Additional device info
         val currentTime = System.currentTimeMillis()
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        dateFormatter.timeZone = TimeZone.getTimeZone("America/New_York")  // Set the timezone
+        val formattedTime = dateFormatter.format(Date(currentTime))
         val rssi = wifiManager.connectionInfo.rssi
         val timeZone = TimeZone.getDefault().id
         val numberOfProcessors = Runtime.getRuntime().availableProcessors()
-        val batteryManager = context.getSystemService(Context.BATTERY_SERVICE) as android.os.BatteryManager
-        val batteryPercent = batteryManager.getIntProperty(android.os.BatteryManager.BATTERY_PROPERTY_CAPACITY)
+        val batteryManager =
+            context.getSystemService(Context.BATTERY_SERVICE) as android.os.BatteryManager
+        val batteryPercent =
+            batteryManager.getIntProperty(android.os.BatteryManager.BATTERY_PROPERTY_CAPACITY)
         val vendor = Build.MANUFACTURER
         val model = Build.MODEL
         val systemPerformance = Runtime.getRuntime().availableProcessors()
@@ -53,13 +60,26 @@ object DataSender {
         val accel = Sensor.TYPE_ACCELEROMETER
         val gyro = Sensor.TYPE_GYROSCOPE
         val magnet = Sensor.TYPE_MAGNETIC_FIELD
+        val metrics = Resources.getSystem().displayMetrics
+        val screenWidth = metrics.widthPixels
+        val screenHeight = metrics.heightPixels
+        val screenDensity = metrics.densityDpi
+        val hasTouchScreen = context.packageManager.hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN)
+        val wifimanager = context.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        val wifiList = wifimanager.scanResults.map { it.SSID }
+        val hasCamera = context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)
+        val hasFrontCamera = context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)
+        val hasMicrophone = context.packageManager.hasSystemFeature(PackageManager.FEATURE_MICROPHONE)
+        val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        val hasTemperatureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE) != null
+
 
         // Assemble the data into a JSON object
         val jsonObject = JSONObject().apply {
             put("user", username)
             put("ipString", ipString)
             put("availableMemory", availableMemory)
-            put("currentTime", currentTime)
+            put("currentTime", formattedTime)
             put("rssi", rssi)
             put("timezone", timeZone)
             put("Processors", numberOfProcessors)
@@ -71,38 +91,63 @@ object DataSender {
             put("accel", accel)
             put("gyro", gyro)
             put("magnet", magnet)
+            put("WifiList", wifiList)
+            put("screenWidth", screenWidth)
+            put("screenLength", screenHeight)
+            put("screenDensity", screenDensity)
+            put("hasTouchScreen", hasTouchScreen)
+            put("hasCamera", hasCamera)
+            put("hasFrontCamera", hasFrontCamera)
+            put("hasMicrophone", hasMicrophone)
+            put("hasTemperatureSensor", hasTemperatureSensor)
         }
 
+
         // Check for location permissions before accessing location
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-            ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(context as Activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), 0)
+        if (ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                context as Activity,
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ),
+                0
+            )
         } else {
             // Get last known location and update the JSON object with location data
             val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-            val locationTask: Task<Location> = fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
                 if (location != null) {
                     jsonObject.put("latitude", location.latitude)
                     jsonObject.put("longitude", location.longitude)
+                    // Send the data to the server
+                    sendHttpRequest(context, jsonObject)
+                } else {
+                    Toast.makeText(context, "Location was not found.", Toast.LENGTH_LONG).show()
                 }
-                // Send the data to the server
-                sendHttpRequest(context, jsonObject)
+            }.addOnFailureListener { e ->
+                Toast.makeText(context, "Failed to get location: ${e.message}", Toast.LENGTH_LONG)
+                    .show()
             }
         }
     }
 
-    /**
-     * Sends an HTTP request with the device data encapsulated in a JSON object.
-     * @param context Context for UI thread handling.
-     * @param jsonObject JSON object containing device data.
-     */
     private fun sendHttpRequest(context: Context, jsonObject: JSONObject) {
         val mediaType = "application/json; charset=utf-8".toMediaType()
         val requestBody = RequestBody.create(mediaType, jsonObject.toString())
 
         // Build and execute the HTTP request
         val request = Request.Builder()
-            .url("http://10.0.2.2:30082/data")
+            .url("http://192.168.1.72:30082/data")
             .post(requestBody)
             .build()
 
@@ -112,16 +157,25 @@ object DataSender {
             override fun onFailure(call: Call, e: IOException) {
                 // Error handling for failed HTTP request
                 (context as Activity).runOnUiThread {
-                    Toast.makeText(context, "Failed to fetch data: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        "Failed to fetch data: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
+
             override fun onResponse(call: Call, response: Response) {
                 response.use {
                     if (!it.isSuccessful) throw IOException("Unexpected code $response")
 
                     // Notify success on the UI thread
                     (context as Activity).runOnUiThread {
-                        Toast.makeText(context, "Data sent successfully", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            "Data sent successfully",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }

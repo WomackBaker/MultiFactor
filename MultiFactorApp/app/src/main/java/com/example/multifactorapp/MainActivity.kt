@@ -52,7 +52,6 @@ class MainActivity : ComponentActivity() {
             DataSender.sendDeviceInfo(this, getOrCreateUUID())
         }
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPreferences = this.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)

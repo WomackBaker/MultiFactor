@@ -26,7 +26,7 @@ def similar_fake_data(data, num):
     availableMemory = data["availableMemory"] + random.randint(-100000000, 100000000)
     rssi = data["rssi"] + random.randint(-10, 10)
     Processors = data["Processors"]
-    Battery = min(100, max(0, data["Battery"] + random.randint(-10, 10)))
+    Battery = min(100, max(1, data["Battery"] + random.randint(-10, 10)))
     systemPerformance = data["systemPerformance"] + random.randint(-1, 1)
     accel = data["accel"]
     gyro = data["gyro"]
@@ -49,5 +49,15 @@ def similar_fake_data(data, num):
         "cpu": data["cpu"],
         "accel": accel,
         "gyro": gyro,
-        "magnet": magnet
+        "magnet": magnet,
+        "WifiList": data["WifiList"],
+        "screenWidth": data["screenWidth"],
+        "screenLength": data["screenLength"],
+        "screenDensity": data["screenDensity"],
+        "hasTouchScreen": data["hasTouchScreen"],
+        "hasCamera": data["hasCamera"],
+        "hasFrontCamera": data["hasFrontCamera"],
+        "hasMicrophone": data["hasMicrophone"],
+        "hasTemperatureSensor": data["hasTemperatureSensor"]
+
     }

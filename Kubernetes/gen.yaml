@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gen-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gen
+  template:
+    metadata:
+      labels:
+        app: gen
+    spec:
+      containers:
+      - name: gen
+        image: bwomack/gen:latest # Change this to your own image
+        ports:
+        - containerPort: 30081 # Update Port
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gen-service
+spec:
+  type: NodePort
+  selector:
+    app: gen
+  ports:
+    - protocol: TCP
+      port: 30082
+      targetPort: 30082
+      nodePort: 30082

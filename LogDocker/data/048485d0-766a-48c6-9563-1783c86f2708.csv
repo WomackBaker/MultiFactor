@@ -1,4 +1,0 @@
-ipString,availableMemory,currentTime,rssi,timezone,Processors,Battery,Vendor,Model,systemPerformance,cpu,accel,gyro,magnet,latitude,longitude
-10.0.2.16,753287168,1713828927697,-50,America/New_York,4,100,Google,sdk_gphone64_x86_64,4,ranchu,1,4,2,37.4219983,-122.084
-10.0.2.16,722067456,1713828947560,-50,America/New_York,4,100,Google,sdk_gphone64_x86_64,4,ranchu,1,4,2,37.4219983,-122.084
-10.0.2.16,744382464,1713829132445,-50,America/New_York,4,100,Google,sdk_gphone64_x86_64,4,ranchu,1,4,2,37.4219983,-122.084

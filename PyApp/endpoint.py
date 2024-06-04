@@ -2,7 +2,7 @@ import requests
 import similar
 from flask import Flask, request, jsonify
 
-NumofVariations = 3
+NumofVariations = 5
 app = Flask(__name__)
 
 @app.route('/data', methods=['POST'])
@@ -15,7 +15,6 @@ def MakeData():
             try:
                 # Generate similar data based on the received JSON
                 similar_data = similar.similar_fake_data(data, i)
-                print(similar_data)
                 # Send the similar data to the server
                 response = requests.post('http://127.0.0.1:30081/data', json=similar_data)
                 

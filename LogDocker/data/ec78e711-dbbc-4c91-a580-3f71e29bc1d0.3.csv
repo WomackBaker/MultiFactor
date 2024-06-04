@@ -1,0 +1,2 @@
+latitude,longitude,ipString,currentTime,availableMemory,rssi,timezone,Processors,Battery,Vendor,Model,systemPerformance,cpu,accel,gyro,magnet,WifiList,screenWidth,screenLength,screenDensity,hasTouchScreen,hasCamera,hasFrontCamera,hasMicrophone,hasTemperatureSensor
+37.0274636,-122.012682,10.0.2.108,2024-05-15 12:56:43,999692836,-58,America/New_York,4,35,Google,sdk_gphone64_x86_64,3,ranchu,1,4,2,[AndroidWifi],1080,2337,420,True,True,True,True,True
