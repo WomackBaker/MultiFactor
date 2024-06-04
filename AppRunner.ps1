@@ -14,8 +14,20 @@ function Start-Emulator {
 function Run-App {
     param (
         [string]$packageName,
-        [string]$mainActivity
+        [string]$mainActivity,
+        [string]$apkPath
     )
+
+    # Check if the app is installed
+    $appInstalled = & adb shell pm list packages | Where-Object { $_ -match $packageName }
+
+    # If the app is not installed, install it
+    if (-not $appInstalled) {
+        Write-Host "App $packageName is not installed. Installing..."
+        & adb install $apkPath
+    }
+
+    # Run the app
     Write-Host "Running app: $packageName"
     & adb shell am start -S -n "$packageName/$mainActivity"
 }
@@ -39,5 +51,5 @@ if (Test-Path $avdFilePath) {
 foreach ($avd in $avds) {
     Start-Emulator -avdName $avd
     Wait-For-Device
-    Run-App -packageName "com.example.multifactorapp" -mainActivity ".MainActivity"
+    Run-App -packageName "com.example.multifactorapp" -mainActivity ".MainActivity" -apkPath "C:\Users\kipwo\OneDrive - University of South Carolina\Desktop\MultiFactor\MultiFactorApp\app\build\outputs\apk\debug\app-debug.apk"
 }
