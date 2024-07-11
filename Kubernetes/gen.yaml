@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
       - name: gen
-        image: bwomack/gen:latest # Change this to your own image
+        image: bwomack/datagen:latest # Change this to your own image
         ports:
-        - containerPort: 30081 # Update Port
+        - containerPort: 30082 # Update Port
 
 ---
 apiVersion: v1

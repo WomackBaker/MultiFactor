@@ -1,0 +1,8 @@
+latitude,longitude,ipString,currentTime,availableMemory,rssi,timezone,Processors,Battery,Vendor,Model,systemPerformance,cpu,accel,gyro,magnet,WifiList,screenWidth,screenLength,screenDensity,hasTouchScreen,hasCamera,hasFrontCamera,hasMicrophone,hasTemperatureSensor
+37.7614653,-122.45681900000001,10.0.2.96,2024-06-18 09:33:05,960198523,-44,America/New_York,4,100,Google,sdk_gphone64_x86_64,5,ranchu,1,4,2,[AndroidWifi],1080,2337,420,True,True,True,True,True
+37.9008523,-122.063844,10.0.2.77,2024-06-18 13:17:58,1006834110,-50,America/New_York,4,91,Google,sdk_gphone64_x86_64,4,ranchu,1,4,2,[AndroidWifi],1080,2337,420,True,True,True,True,True
+37.011314299999995,-122.33997600000001,10.0.2.158,2024-06-18 02:05:38,949497126,-51,America/New_York,4,93,Google,sdk_gphone64_x86_64,4,ranchu,1,4,2,[AndroidWifi],1080,2337,420,True,True,True,True,True
+37.5170593,-122.30061400000001,10.0.2.0,2024-06-18 02:45:35,1035235371,-54,America/New_York,4,100,Google,sdk_gphone64_x86_64,4,ranchu,1,4,2,[AndroidWifi],1080,2337,420,True,True,True,True,True
+37.776227299999995,-121.643563,10.0.2.66,2024-06-18 04:14:14,991057493,-56,America/New_York,4,99,Google,sdk_gphone64_x86_64,4,ranchu,1,4,2,[AndroidWifi],1080,2337,420,True,True,True,True,True
+37.2969163,-122.096844,10.0.2.238,2024-06-18 15:23:56,1075114804,-44,America/New_York,4,96,Google,sdk_gphone64_x86_64,3,ranchu,1,4,2,[AndroidWifi],1080,2337,420,True,True,True,True,True
+37.2967143,-121.818488,10.0.2.133,2024-06-18 06:36:18,1107091565,-51,America/New_York,4,100,Google,sdk_gphone64_x86_64,3,ranchu,1,4,2,[AndroidWifi],1080,2337,420,True,True,True,True,True

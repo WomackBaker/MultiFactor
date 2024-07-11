@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: android-emulator-deployment
+  labels:
+    app: android-emulator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: android-emulator
+  template:
+    metadata:
+      labels:
+        app: android-emulator
+    spec:
+      containers:
+      - name: android-emulator
+        image: bwomack/android:latest
+        ports:
+        - containerPort: 5554
+        - containerPort: 5555
+        securityContext:
+          privileged: true
