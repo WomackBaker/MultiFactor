@@ -14,9 +14,14 @@ def similar_fake_data(data, num):
     user = data["user"]
     user = user + str("."+str(num+1))
 
-    # Generate similar latitude and longitude
-    latitude = float(data["latitude"]) + round(random.uniform(-0.5, 0.5), 6)
-    longitude = float(data["longitude"]) + round(random.uniform(-0.5, 0.5), 6)
+    if float(data["latitude"]) == 0.0 and float(data["longitude"]) == 0.0:
+        # Generate completely random latitude and longitude
+        latitude = round(random.uniform(-90, 90), 6)
+        longitude = round(random.uniform(-180, 180), 6)
+    else:
+        # Generate similar latitude and longitude
+        latitude = float(data["latitude"]) + round(random.uniform(-0.5, 0.5), 6)
+        longitude = float(data["longitude"]) + round(random.uniform(-0.5, 0.5), 6)
 
     # Generate a fake IP address (using the last two octets from the initial one)
     ip_octets = data["ipString"].split('.')
@@ -27,7 +32,9 @@ def similar_fake_data(data, num):
     rssi = data["rssi"] + random.randint(-10, 10)
     Processors = data["Processors"]
     Battery = min(100, max(1, data["Battery"] + random.randint(-10, 10)))
-    systemPerformance = data["systemPerformance"] + random.randint(-1, 1)
+    systemPerformance = data.get("systemPerformance")
+    if systemPerformance is not None:
+        systemPerformance += random.randint(-1, 1)
     accel = data["accel"]
     gyro = data["gyro"]
     magnet = data["magnet"]
@@ -50,7 +57,6 @@ def similar_fake_data(data, num):
         "accel": accel,
         "gyro": gyro,
         "magnet": magnet,
-        "WifiList": data["WifiList"],
         "screenWidth": data["screenWidth"],
         "screenLength": data["screenLength"],
         "screenDensity": data["screenDensity"],
@@ -59,5 +65,4 @@ def similar_fake_data(data, num):
         "hasFrontCamera": data["hasFrontCamera"],
         "hasMicrophone": data["hasMicrophone"],
         "hasTemperatureSensor": data["hasTemperatureSensor"]
-
     }

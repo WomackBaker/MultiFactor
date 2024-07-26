@@ -19,8 +19,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.multifactorapp.ui.theme.MultifactorAppTheme
 import android.Manifest
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.remember
@@ -43,14 +45,6 @@ class MainActivity : ComponentActivity() {
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
         val granted = permissions.entries.all { it.value }
-        if (granted) {
-            // Permissions are granted, proceed to send device info
-            DataSender.sendDeviceInfo(this, getOrCreateUUID())
-        } else {
-            // Display a message if location permissions are not granted
-            Toast.makeText(this, "Location permission is required to send device info.", Toast.LENGTH_LONG).show()
-            DataSender.sendDeviceInfo(this, getOrCreateUUID())
-        }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,7 +64,7 @@ class MainActivity : ComponentActivity() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
             ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             // Permissions are granted, proceed to send device info
-            DataSender.sendDeviceInfo(this, getOrCreateUUID())
+
         } else {
             // Not granted, request permissions
             requestPermissionLauncher.launch(
@@ -79,7 +73,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    public fun getOrCreateUUID(): String {
+    private fun getOrCreateUUID(): String {
         // Check if UUID exists
         var uuid = sharedPreferences.getString(UUID_KEY, null)
         if (uuid == null) {
@@ -153,8 +147,11 @@ fun ButtonsScreen(getUUID: String) {
         val smscontext = LocalContext.current
         val uuid = getUUID(smscontext)
         Button(
-
-            onClick = { DataSender.sendDeviceInfo(smscontext, uuid)},
+            onClick = {val intent = Intent(smscontext, GetDataActivity::class.java).apply { putExtra("username", uuid)
+                }
+                Log.d("UUIDLogger", "Generated UUID: $uuid")
+                smscontext.startActivity(intent)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)

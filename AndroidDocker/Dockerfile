@@ -1,11 +1,12 @@
 # Baker Womack
 # docker build -t android .
-# docker run --rm -it --device /dev/kvm --privileged -p 5554:5554 -p 5555:5555 android-emulator --name android 
+# docker run --rm -it --device /dev/kvm --privileged -p 30083:30083 -p 5555:5555 android
+# docker tag android bwomack/android:latest
+# docker push bwomack/android:latest
 
-# Dockerfile to run Android Emulator with KVM on Ubuntu 20.04
+FROM ubuntu:22.04
 
-# Use the official Ubuntu 20.04 as a base image
-FROM ubuntu:20.04
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Install required packages
 RUN apt-get update && apt-get install -y \
@@ -16,7 +17,13 @@ RUN apt-get update && apt-get install -y \
     libqt5widgets5 \
     adb \
     qemu-kvm \
+    python3 \
+    python3-pip \
+    python3-requests \
+    python3-flask \
     && apt-get clean
+
+RUN pip3 install requests flask
 
 # Set environment variables
 ENV ANDROID_SDK_ROOT=/opt/android-sdk
@@ -38,7 +45,7 @@ COPY phone.sh /usr/local/bin/phone.sh
 RUN chmod +x /usr/local/bin/phone.sh
 
 # Copy the APK file into the container
-COPY "multifactorapp.apk" /opt/
+COPY "." /opt/
 
 # Expose ports for ADB and Emulator
 EXPOSE 5554 5555

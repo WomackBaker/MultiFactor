@@ -15,11 +15,20 @@ The application interacts with two main components on the server-side:
    - Utilizes a Flask application to manage API endpoints.
    - Handles data from the Android app for authentication.
    - Uses the Deepface library for facial recognition and a CNN for voice recognition from `.wav` files.
+   - Uses voiceface.py to run flask application on port 30080 on the localhost
 
 2. **Logging Server**
    - Also encapsulated within a Docker container.
    - Receives and processes JSON requests.
    - Logs are maintained in CSV format based on the UUID provided in the request.
+   - Uses data.py to run the flask application on port 30081
+
+2. **Data Generation Server**
+   - Also encapsulated within a Docker container.
+   - Receives and processes JSON requests from the multifactor app.
+   - Creates different instances of the user to generate similar but different data that typical user would find.
+   - Uses endpoint.py to run the flask application on port 30082
+   - Sends the generated data to the loggin server
 
 ## Future Implementations
 - Implementing actual data capture for voice and facial authentication, replacing the test presets.

@@ -51,5 +51,5 @@ if (Test-Path $avdFilePath) {
 foreach ($avd in $avds) {
     Start-Emulator -avdName $avd
     Wait-For-Device
-    Run-App -packageName "com.example.multifactorapp" -mainActivity ".MainActivity" -apkPath "C:\Users\kipwo\OneDrive - University of South Carolina\Desktop\MultiFactor\MultiFactorApp\app\build\outputs\apk\debug\app-debug.apk"
+    Run-App -packageName "com.example.multifactorapp" -mainActivity ".MainActivity" -apkPath ".\MultifactorApp\app\build\outputs\apk\debug\app-debug.apk"
 }

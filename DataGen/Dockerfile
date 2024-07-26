@@ -1,6 +1,6 @@
 # Baker Womack
 # docker build -t datagen .
-# docker run -p 30082:30082 datagen
+# docker run -p 30082:30082 --name datagen datagen
 
 # Use an official Python runtime as a parent image
 FROM python:3.8-slim-buster

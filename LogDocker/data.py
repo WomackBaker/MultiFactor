@@ -7,7 +7,6 @@ app = Flask(__name__)
 @app.route('/data', methods=['POST'])
 def GetData():
     data = request.get_json()
-    print(data)
     name = data.pop('user', None)
     if data:
         try:

@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 def MakeData():
     data = request.get_json()
+    print(data)
     response = requests.post('http://host.docker.internal:30082/data', json=data)
     if response.status_code == 200:
         return jsonify({"message": "Data processed and sent successfully"}), 200

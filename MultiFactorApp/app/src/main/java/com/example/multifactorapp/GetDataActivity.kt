@@ -3,6 +3,7 @@ import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.net.wifi.WifiManager
@@ -25,7 +26,6 @@ class DataSenderActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_data_sender)
 
         // Retrieve the username from the intent
         val username = intent.getStringExtra("username") ?: "default_user"
@@ -76,7 +76,6 @@ class DataSenderActivity : Activity() {
         val screenHeight = metrics.heightPixels
         val screenDensity = metrics.densityDpi
         val hasTouchScreen = context.packageManager.hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN)
-        val wifiManager = context.getSystemService(Context.WIFI_SERVICE) as WifiManager
         val wifiList = wifiManager.scanResults.map { it.SSID }
         val hasCamera = context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)
         val hasFrontCamera = context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)

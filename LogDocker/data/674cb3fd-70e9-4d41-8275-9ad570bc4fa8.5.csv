@@ -1,8 +1,2 @@
-latitude,longitude,ipString,currentTime,availableMemory,rssi,timezone,Processors,Battery,Vendor,Model,systemPerformance,cpu,accel,gyro,magnet,WifiList,screenWidth,screenLength,screenDensity,hasTouchScreen,hasCamera,hasFrontCamera,hasMicrophone,hasTemperatureSensor
-37.656312299999996,-122.012122,10.0.2.135,2024-06-18 01:57:39,1080698695,-54,America/New_York,4,100,Google,sdk_gphone64_x86_64,3,ranchu,1,4,2,[AndroidWifi],1080,2337,420,True,True,True,True,True
-36.9367143,-122.30754900000001,10.0.2.118,2024-06-18 10:47:54,1052063755,-60,America/New_York,4,100,Google,sdk_gphone64_x86_64,4,ranchu,1,4,2,[AndroidWifi],1080,2337,420,True,True,True,True,True
-37.4014643,-122.513073,10.0.2.60,2024-06-18 20:44:06,1018148495,-46,America/New_York,4,100,Google,sdk_gphone64_x86_64,3,ranchu,1,4,2,[AndroidWifi],1080,2337,420,True,True,True,True,True
-37.8269233,-122.4346,10.0.2.203,2024-06-18 22:26:46,1118135530,-57,America/New_York,4,100,Google,sdk_gphone64_x86_64,3,ranchu,1,4,2,[AndroidWifi],1080,2337,420,True,True,True,True,True
-36.956308299999996,-122.45359400000001,10.0.2.167,2024-06-18 05:04:30,952528145,-49,America/New_York,4,92,Google,sdk_gphone64_x86_64,5,ranchu,1,4,2,[AndroidWifi],1080,2337,420,True,True,True,True,True
-37.6051953,-122.050825,10.0.2.28,2024-06-18 07:15:04,1125842001,-58,America/New_York,4,98,Google,sdk_gphone64_x86_64,5,ranchu,1,4,2,[AndroidWifi],1080,2337,420,True,True,True,True,True
-37.6679023,-121.818593,10.0.2.158,2024-06-18 14:08:59,1051941955,-54,America/New_York,4,98,Google,sdk_gphone64_x86_64,3,ranchu,1,4,2,[AndroidWifi],1080,2337,420,True,True,True,True,True
+latitude,longitude,ipString,currentTime,availableMemory,rssi,timezone,Processors,Battery,Vendor,Model,systemPerformance,cpu,accel,gyro,magnet,screenWidth,screenLength,screenDensity,hasTouchScreen,hasCamera,hasFrontCamera,hasMicrophone,hasTemperatureSensor
+37.0716393,-122.23891,10.0.2.227,2024-06-25 20:00:58,683621074,-60,America/New_York,4,100,Google,sdk_gphone64_x86_64,,ranchu,1,4,2,1080,2337,420,True,True,True,True,True

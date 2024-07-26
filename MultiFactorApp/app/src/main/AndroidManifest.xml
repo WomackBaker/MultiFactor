@@ -33,6 +33,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".GetDataActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name=".ImagePickerActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -40,6 +44,9 @@
             android:name=".VoicePickerActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <service
+            android:name=".DataUploadService"
+            android:exported="false" />
     </application>
 
 </manifest>
