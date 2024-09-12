@@ -1,0 +1,2 @@
+latitude,longitude,ipString,currentTime,availableMemory,rssi,timezone,Processors,Battery,Vendor,Model,systemPerformance,cpu,accel,gyro,magnet,screenWidth,screenLength,screenDensity,hasTouchScreen,hasCamera,hasFrontCamera,hasMicrophone,hasTemperatureSensor
+37.1850783,-121.961523,10.0.2.210,2024-06-25 08:28:54,793739180,-60,America/New_York,4,100,Google,sdk_gphone64_x86_64,,ranchu,1,4,2,1080,2337,420,True,True,True,True,True
