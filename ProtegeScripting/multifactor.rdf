@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:ex="http://example.org/multifactor#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="http://example.org/multifactor#latitude">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#Model">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#674cb3fd-70e9-4d41-8275-9ad570bc4fa8.4">
+    <rdf:type rdf:resource="http://example.org/multifactor#Phones"/>
+    <ex:latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">37.7525383</ex:latitude>
+    <ex:longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-122.150436</ex:longitude>
+    <ex:ipString rdf:datatype="http://www.w3.org/2001/XMLSchema#string">10.0.2.59</ex:ipString>
+    <ex:currentTime rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2024-06-25 23:57:01</ex:currentTime>
+    <ex:availableMemory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">792198335</ex:availableMemory>
+    <ex:rssi rdf:datatype="http://www.w3.org/2001/XMLSchema#string">-56</ex:rssi>
+    <ex:timezone rdf:datatype="http://www.w3.org/2001/XMLSchema#string">America/New_York</ex:timezone>
+    <ex:Processors rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4</ex:Processors>
+    <ex:Battery rdf:datatype="http://www.w3.org/2001/XMLSchema#string">96</ex:Battery>
+    <ex:Vendor rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Google</ex:Vendor>
+    <ex:Model rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sdk_gphone64_x86_64</ex:Model>
+    <ex:cpu rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ranchu</ex:cpu>
+    <ex:accel rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1</ex:accel>
+    <ex:gyro rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4</ex:gyro>
+    <ex:magnet rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2</ex:magnet>
+    <ex:screenWidth rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1080</ex:screenWidth>
+    <ex:screenLength rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2337</ex:screenLength>
+    <ex:screenDensity rdf:datatype="http://www.w3.org/2001/XMLSchema#string">420</ex:screenDensity>
+    <ex:hasTouchScreen rdf:datatype="http://www.w3.org/2001/XMLSchema#string">True</ex:hasTouchScreen>
+    <ex:hasCamera rdf:datatype="http://www.w3.org/2001/XMLSchema#string">True</ex:hasCamera>
+    <ex:hasFrontCamera rdf:datatype="http://www.w3.org/2001/XMLSchema#string">True</ex:hasFrontCamera>
+    <ex:hasMicrophone rdf:datatype="http://www.w3.org/2001/XMLSchema#string">True</ex:hasMicrophone>
+    <ex:hasTemperatureSensor rdf:datatype="http://www.w3.org/2001/XMLSchema#string">True</ex:hasTemperatureSensor>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#674cb3fd-70e9-4d41-8275-9ad570bc4fa8.5">
+    <rdf:type rdf:resource="http://example.org/multifactor#Phones"/>
+    <ex:latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">37.0716393</ex:latitude>
+    <ex:longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-122.23891</ex:longitude>
+    <ex:ipString rdf:datatype="http://www.w3.org/2001/XMLSchema#string">10.0.2.227</ex:ipString>
+    <ex:currentTime rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2024-06-25 20:00:58</ex:currentTime>
+    <ex:availableMemory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">683621074</ex:availableMemory>
+    <ex:rssi rdf:datatype="http://www.w3.org/2001/XMLSchema#string">-60</ex:rssi>
+    <ex:timezone rdf:datatype="http://www.w3.org/2001/XMLSchema#string">America/New_York</ex:timezone>
+    <ex:Processors rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4</ex:Processors>
+    <ex:Battery rdf:datatype="http://www.w3.org/2001/XMLSchema#string">100</ex:Battery>
+    <ex:Vendor rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Google</ex:Vendor>
+    <ex:Model rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sdk_gphone64_x86_64</ex:Model>
+    <ex:cpu rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ranchu</ex:cpu>
+    <ex:accel rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1</ex:accel>
+    <ex:gyro rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4</ex:gyro>
+    <ex:magnet rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2</ex:magnet>
+    <ex:screenWidth rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1080</ex:screenWidth>
+    <ex:screenLength rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2337</ex:screenLength>
+    <ex:screenDensity rdf:datatype="http://www.w3.org/2001/XMLSchema#string">420</ex:screenDensity>
+    <ex:hasTouchScreen rdf:datatype="http://www.w3.org/2001/XMLSchema#string">True</ex:hasTouchScreen>
+    <ex:hasCamera rdf:datatype="http://www.w3.org/2001/XMLSchema#string">True</ex:hasCamera>
+    <ex:hasFrontCamera rdf:datatype="http://www.w3.org/2001/XMLSchema#string">True</ex:hasFrontCamera>
+    <ex:hasMicrophone rdf:datatype="http://www.w3.org/2001/XMLSchema#string">True</ex:hasMicrophone>
+    <ex:hasTemperatureSensor rdf:datatype="http://www.w3.org/2001/XMLSchema#string">True</ex:hasTemperatureSensor>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#currentTime">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#rssi">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#systemPerformance">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#Battery">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#availableMemory">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#longitude">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#ipString">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#gyro">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#Processors">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#magnet">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#accel">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#hasMicrophone">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#hasTouchScreen">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#hasCamera">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#screenLength">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#timezone">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#hasTemperatureSensor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#hasFrontCamera">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#screenWidth">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#cpu">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#screenDensity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/multifactor#Vendor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/multifactor#Phones"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+</rdf:RDF>
