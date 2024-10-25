@@ -41,8 +41,8 @@ def create_data_properties(properties, sample_row):
             g.add((data_property, RDFS.range, XSD.boolean))
         else:
             g.add((data_property, RDFS.range, XSD.string))
-   
         print(f"Created functional data property: {data_property} with inferred range")
+    g.add((EX["propertyof"],RDFS.range, XSD.string))
 
 # List of data properties
 data_properties = [
@@ -94,7 +94,7 @@ for filename in os.listdir(csv_folder):
                         value = rdflib.Literal(str(value), datatype=XSD.string)
                     g.add((phone_individual, data_property, value))
             break  # Only process the first row
-
+        g.add((phone_individual, EX["propertyof"], rdflib.Literal("", datatype=XSD.string)))
 # Save the updated ontology in RDF format
 g.serialize(destination=ontology_path, format="xml")
 
