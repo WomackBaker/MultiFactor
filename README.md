@@ -1,38 +1,124 @@
-# Multifactor App
+# MultiFactor Authentication Project
 
-## Overview
-The Multifactor App is a simple Android application featuring five buttons. Currently, only voice and facial authentication are functional. The app communicates with a local server, sending essential data and receiving authentication statuses.
+This repository contains various scripts and tools for context and adaptive multi-factor authentication, data processing, and machine learning. The project is organized into several directories, each serving a specific purpose.
 
-## Current Functionality
-- **Voice Authentication:** Uses preset voice and image data sent to the authentication server when activated.
-- **Facial Authentication:** Similarly uses a preset image for testing purposes.
-- **SMS:** Sends phone data such as UUID, latitude, longitude, IP address, memory, current time, and RSSI to the server for testing connectivity and response.
+## Directory Structure
 
-## Server Setup
-The application interacts with two main components on the server-side:
-1. **Authentication Server**
-   - Runs inside a Docker container.
-   - Utilizes a Flask application to manage API endpoints.
-   - Handles data from the Android app for authentication.
-   - Uses the Deepface library for facial recognition and a CNN for voice recognition from `.wav` files.
-   - Uses voiceface.py to run flask application on port 30080 on the localhost
+.
+├── AndroidDocker/
+│   ├── Dockerfile
+│   ├── multifactorapp.apk
+│   ├── phone.sh
+│   └── refer.py
+├── csvtomysql/
+│   ├── convert.py
+│   └── data/
+├── DataGen/
+│   ├── Dockerfile
+│   ├── endpoint.py
+│   ├── main.py
+│   ├── requirements.txt
+│   └── similar.py
+├── Docker/
+│   ├── data/
+│   ├── Dockerfile
+│   ├── face.py
+│   ├── feature_extraction.py
+│   ├── GetData.py
+│   ├── parameters.py
+│   ├── preprocess.py
+│   ├── README.md
+│   ├── requirements.txt
+│   ├── voice_auth_model_cnn/
+│   ├── voice_auth.py
+│   ├── voice.py
+│   └── voiceface.py
+├── Executable/
+│   └── build/
+├── Kubernetes/
+├── LogDocker/
+├── MultiFactorApp/
+├── ProtegeScripting/
+├── README.md
+└── vms.txt
 
-2. **Logging Server**
-   - Also encapsulated within a Docker container.
-   - Receives and processes JSON requests.
-   - Logs are maintained in CSV format based on the UUID provided in the request.
-   - Uses data.py to run the flask application on port 30081
+## Directories and Files
 
-2. **Data Generation Server**
-   - Also encapsulated within a Docker container.
-   - Receives and processes JSON requests from the multifactor app.
-   - Creates different instances of the user to generate similar but different data that typical user would find.
-   - Uses endpoint.py to run the flask application on port 30082
-   - Sends the generated data to the loggin server
+### AndroidDocker
+Contains Docker-related files for building and running the Android multi-factor authentication app inside of a docker container.
 
-## Future Implementations
-- Implementing actual data capture for voice and facial authentication, replacing the test presets.
-- Enhancing SMS functionality for broader testing or live deployment.
+- Dockerfile: Docker configuration file.
+- multifactorapp.apk: The Android application package.
+- phone.sh: Shell script for phone-related operations.
 
-## Network Configuration
-- The app currently interacts with servers at the local address `10.0.2.2:30080`.
+### csvtomysql
+Scripts for converting CSV data to MySQL database.
+
+- convert.py: Script to convert CSV files to MySQL.
+- data/: Directory containing CSV data files.
+
+### DataGen
+Container for data generation and processing from the android container.
+
+- Dockerfile: Docker configuration file.
+- endpoint.py: Script for handling endpoints.
+- main.py: Main script for data generation.
+- requirements.txt: Python dependencies.
+- similar.py: Script for finding similar data.
+
+### Docker
+Contains Docker-related files and scripts for various data processing and machine learning tasks.
+
+- Dockerfile: Docker configuration file.
+- face.py: Script for face recognition.
+- feature_extraction.py: Script for feature extraction.
+- GetData.py: Script for data retrieval.
+- parameters.py: Script for handling parameters.
+- preprocess.py: Script for data preprocessing.
+- README.md: Documentation for the Docker directory.
+- requirements.txt: Python dependencies.
+- voice_auth_model_cnn/: Directory containing voice authentication model files.
+- voice_auth.py: Script for voice authentication.
+- voice.py: Script for voice-related operations.
+- voiceface.py: Script for combined voice and face recognition.
+
+### Executable
+Contains build files for the windows executable version of the multifactor application.
+
+- build/: Directory containing build files.
+
+### Kubernetes
+Contains Kubernetes configuration files to run the logging container, data generation container, authentication container, and the android container.
+
+### LogDocker
+Contains Docker-related files for logging from the data generation container.
+
+### MultiFactorApp
+Contains the multi-factor authentication application and mobile files.
+
+### ProtegeScripting
+Contains scripts for converting csv into Protege ontology management.
+
+### vms.txt
+Contains information about virtual machines.
+
+## Getting Started
+
+### Prerequisites
+
+- Docker
+- Python 3.11
+- MySQL
+
+### Installation
+
+1. Clone the repository:
+   git clone https://github.com/yourusername/multifactor-authentication.git
+   cd multifactor-authentication
+
+
+### Usage
+
+1. Run the container inside of kubernetes:
+   
+   kubectl apply -f ./android.yaml -f auth.yaml -f gen.yaml -f log.yaml
