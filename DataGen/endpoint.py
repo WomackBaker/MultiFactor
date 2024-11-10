@@ -2,7 +2,7 @@ import requests
 import similar
 from flask import Flask, request, jsonify
 
-NumofVariations = 5
+NumofVariations = 30
 app = Flask(__name__)
 
 @app.route('/data', methods=['POST'])

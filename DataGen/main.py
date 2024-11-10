@@ -6,8 +6,8 @@ import similar
 import csv
 import os
 
-NumofUsers = 3
-NumofVariations = 10
+NumofUsers = 1
+NumofVariations = 1
 
 def User(Usernum, NumofVariations):
     # Initialize a Faker generator

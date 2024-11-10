@@ -4,7 +4,7 @@ import rdflib
 from rdflib.namespace import RDF, RDFS, OWL, XSD
 
 # Path to the folder containing CSV files
-csv_folder = './samplecsv'
+csv_folder = './data'
 
 # Path to your Protege ontology file
 ontology_path = './multifactor.rdf'
@@ -72,8 +72,12 @@ for filename in os.listdir(csv_folder):
 
         # Use the filename (without extension) as the individual name
         individual_name = os.path.splitext(filename)[0]
+        username = individual_name.split(".")[0]
+        user = EX[username]
+        g.add((user, RDF.type, OWL.Class))
+        g.add((user, RDFS.subClassOf, EX.Phones))
         phone_individual = EX[individual_name]
-        g.add((phone_individual, RDF.type, EX.Phones))
+        g.add((phone_individual, RDF.type, user))
 
         # Assign values to data properties for the first row only
         for _, row in df.iterrows():
