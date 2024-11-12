@@ -98,7 +98,7 @@ for filename in os.listdir(csv_folder):
                         value = rdflib.Literal(str(value), datatype=XSD.string)
                     g.add((phone_individual, data_property, value))
             break  # Only process the first row
-        g.add((phone_individual, EX["propertyof"], rdflib.Literal("", datatype=XSD.string)))
+        g.add((phone_individual, EX["propertyof"], rdflib.Literal(username, datatype=XSD.string)))
 # Save the updated ontology in RDF format
 g.serialize(destination=ontology_path, format="xml")
 
