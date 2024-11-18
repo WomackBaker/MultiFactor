@@ -1,0 +1,2 @@
+latitude,longitude,ipString,currentTime,availableMemory,rssi,timezone,Processors,Battery,Vendor,Model,systemPerformance,cpu,accel,gyro,magnet,screenWidth,screenLength,screenDensity,hasTouchScreen,hasCamera,hasFrontCamera,hasMicrophone,hasTemperatureSensor
+34.052235,-118.243683,192.168.1.105,2024-11-07 17:01:43,512674685,-50,Etc/UTC,8,15,HackedDevice,AttackerModelX,Compromised,ranchu,1,1,0,1080,1920,320,True,True,False,True,False
