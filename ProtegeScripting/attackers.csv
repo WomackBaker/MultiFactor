@@ -1,3 +1,4 @@
+latitude,longitude,ipString,currentTime,availableMemory,rssi,timezone,Processors,Battery,Vendor,Model,systemPerformance,cpu,accel,gyro,magnet,screenWidth,screenLength,screenDensity,hasTouchScreen,hasCamera,hasFrontCamera,hasMicrophone,hasTemperatureSensor
 af8e5508-83ae-41ac-9ffe-6cd750e52fe0,1,1,0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,1,1,0,1,0
 af8e5508-83ae-41ac-9ffe-6cd750e52fe0,1,1,0,1,0,0,,0,1,0,0,0,0,1,0,0,1,0,0,1,1,0,1,0
 af8e5508-83ae-41ac-9ffe-6cd750e52fe0,1,1,0,1,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,1,1,0,1,0
