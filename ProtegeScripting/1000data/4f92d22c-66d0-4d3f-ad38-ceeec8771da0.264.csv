@@ -1,0 +1,12 @@
+latitude,longitude,ipString,currentTime,availableMemory,rssi,timezone,Processors,Battery,Vendor,Model,systemPerformance,cpu,accel,gyro,magnet,screenWidth,screenLength,screenDensity,hasTouchScreen,hasCamera,hasFrontCamera,hasMicrophone,hasTemperatureSensor
+-69.157545,-138.71505200000001,10.0.2.247,2024-11-22 22:06:06,1090957661,-25,Etc/UTC,4,91,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.17829,-139.38332200000002,10.0.2.97,2024-11-22 08:28:37,979340963,-40,Etc/UTC,4,95,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.498794,-139.29378300000002,10.0.2.79,2024-11-22 05:36:41,958075899,-27,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.125011,-138.60738700000002,10.0.2.68,2024-11-22 02:54:35,1017281423,-31,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.246262,-139.19605700000002,10.0.2.64,2024-11-22 06:04:34,1092766726,-33,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.802171,-138.781699,10.0.2.153,2024-11-22 16:38:09,1190852231,-21,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.10681,-139.131134,10.0.2.108,2024-11-22 21:16:48,1181471142,-22,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.053742,-138.61519800000002,10.0.2.183,2024-11-22 15:53:13,1130187252,-30,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.722034,-138.79220500000002,10.0.2.89,2024-11-22 05:06:46,1211935398,-30,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.172292,-138.88502200000002,10.0.2.16,2024-11-22 17:43:35,1094024618,-31,Etc/UTC,4,94,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-68.935342,-139.42405200000002,10.0.2.9,2024-11-22 15:39:06,1186464579,-40,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True

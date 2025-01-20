@@ -1,0 +1,12 @@
+latitude,longitude,ipString,currentTime,availableMemory,rssi,timezone,Processors,Battery,Vendor,Model,systemPerformance,cpu,accel,gyro,magnet,screenWidth,screenLength,screenDensity,hasTouchScreen,hasCamera,hasFrontCamera,hasMicrophone,hasTemperatureSensor
+-69.872759,-139.063037,10.0.2.73,2024-11-22 19:04:27,1008894459,-33,Etc/UTC,4,92,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.700994,-138.995076,10.0.2.153,2024-11-22 23:13:25,982759481,-30,Etc/UTC,4,97,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.73319,-139.24866200000002,10.0.2.173,2024-11-22 19:46:46,1002629213,-31,Etc/UTC,4,99,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.879767,-138.479794,10.0.2.103,2024-11-22 23:42:29,1108236550,-30,Etc/UTC,4,97,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.883682,-138.940355,10.0.2.211,2024-11-22 08:50:13,1110550551,-36,Etc/UTC,4,94,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.325809,-139.40519500000002,10.0.2.7,2024-11-22 14:33:35,1024030657,-21,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.589473,-138.596506,10.0.2.158,2024-11-22 17:02:55,1153083682,-34,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-68.978211,-138.56403300000002,10.0.2.179,2024-11-22 14:40:03,1190230453,-25,Etc/UTC,4,94,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.136528,-138.775132,10.0.2.251,2024-11-22 11:02:25,1058299320,-21,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.743621,-139.140576,10.0.2.163,2024-11-22 20:50:10,1174675866,-26,Etc/UTC,4,94,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.344793,-138.815516,10.0.2.196,2024-11-22 05:16:45,1139980664,-37,Etc/UTC,4,93,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True

@@ -1,0 +1,13 @@
+latitude,longitude,ipString,currentTime,availableMemory,rssi,timezone,Processors,Battery,Vendor,Model,systemPerformance,cpu,accel,gyro,magnet,screenWidth,screenLength,screenDensity,hasTouchScreen,hasCamera,hasFrontCamera,hasMicrophone,hasTemperatureSensor
+-69.60985,-138.923536,10.0.2.115,2024-11-22 01:16:27,938250510,-38,Etc/UTC,4,90,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.862656,-138.50357200000002,10.0.2.201,2024-11-22 11:14:12,1143020239,-40,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.77008000000001,-138.691089,10.0.2.170,2024-11-22 19:51:33,1142504273,-36,Etc/UTC,4,95,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.273135,-139.27223800000002,10.0.2.2,2024-11-22 08:58:45,1077488884,-25,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.274812,-138.86612200000002,10.0.2.150,2024-11-22 00:54:07,1088193281,-28,Etc/UTC,4,99,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.823223,-139.34151,10.0.2.50,2024-11-22 04:13:19,1086908036,-33,Etc/UTC,4,97,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.037184,-138.54223900000002,10.0.2.88,2024-11-22 14:48:58,1124902568,-35,Etc/UTC,4,94,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.857729,-139.245673,10.0.2.41,2024-11-22 06:20:15,1189845534,-36,Etc/UTC,4,90,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.320616,-138.734213,10.0.2.79,2024-11-22 13:29:40,1115267637,-21,Etc/UTC,4,93,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.467792,-139.33857400000002,10.0.2.10,2024-11-22 21:08:28,1019476087,-33,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.424563,-139.35607000000002,10.0.2.90,2024-11-22 07:22:44,1139922945,-24,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.501501,-139.110952,10.0.2.49,2024-11-22 03:15:39,1087570829,-35,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True

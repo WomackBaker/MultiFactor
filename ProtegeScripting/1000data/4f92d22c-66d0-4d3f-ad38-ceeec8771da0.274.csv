@@ -1,0 +1,12 @@
+latitude,longitude,ipString,currentTime,availableMemory,rssi,timezone,Processors,Battery,Vendor,Model,systemPerformance,cpu,accel,gyro,magnet,screenWidth,screenLength,screenDensity,hasTouchScreen,hasCamera,hasFrontCamera,hasMicrophone,hasTemperatureSensor
+-69.415746,-139.031767,10.0.2.32,2024-11-22 04:24:28,1135118522,-38,Etc/UTC,4,94,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.712024,-138.568993,10.0.2.1,2024-11-22 23:24:39,1104281987,-28,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.739842,-139.34913300000002,10.0.2.130,2024-11-22 08:02:28,1012084876,-24,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.207001,-138.47470800000002,10.0.2.33,2024-11-22 06:55:47,1177314804,-26,Etc/UTC,4,98,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.232151,-138.791501,10.0.2.144,2024-11-22 21:21:02,1142565569,-39,Etc/UTC,4,99,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-68.972454,-138.97609500000002,10.0.2.101,2024-11-22 22:53:33,1159816006,-39,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.358727,-139.323495,10.0.2.211,2024-11-22 03:23:28,1014824239,-22,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.741634,-138.473814,10.0.2.229,2024-11-22 09:40:41,1021288768,-24,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.728369,-138.773961,10.0.2.39,2024-11-22 12:24:06,1090452070,-27,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.652435,-138.768732,10.0.2.3,2024-11-22 19:03:35,1181324542,-20,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.568739,-138.440844,10.0.2.126,2024-11-22 06:03:27,1112193522,-20,Etc/UTC,4,95,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True

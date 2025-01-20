@@ -1,0 +1,12 @@
+latitude,longitude,ipString,currentTime,availableMemory,rssi,timezone,Processors,Battery,Vendor,Model,systemPerformance,cpu,accel,gyro,magnet,screenWidth,screenLength,screenDensity,hasTouchScreen,hasCamera,hasFrontCamera,hasMicrophone,hasTemperatureSensor
+-69.47946,-138.47294000000002,10.0.2.127,2024-11-22 08:43:39,1073522639,-21,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.546467,-138.532926,10.0.2.210,2024-11-22 03:12:56,1032011990,-29,Etc/UTC,4,97,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.746881,-138.573517,10.0.2.242,2024-11-22 20:03:42,1056287010,-22,Etc/UTC,4,91,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.098068,-139.149012,10.0.2.218,2024-11-22 23:28:29,989249710,-24,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.806123,-138.60728,10.0.2.111,2024-11-22 08:40:28,1159384199,-26,Etc/UTC,4,99,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.535418,-138.945684,10.0.2.234,2024-11-22 22:24:14,1201086599,-40,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.66221,-138.79774,10.0.2.177,2024-11-22 16:25:33,1171087934,-33,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-68.928626,-138.571491,10.0.2.4,2024-11-22 02:45:23,1190836838,-33,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.303586,-139.246002,10.0.2.5,2024-11-22 02:37:27,1087447506,-28,Etc/UTC,4,90,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.035732,-139.34574500000002,10.0.2.38,2024-11-22 00:15:45,1126471155,-33,Etc/UTC,4,97,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.797223,-139.164399,10.0.2.77,2024-11-22 21:20:22,1035152930,-25,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True

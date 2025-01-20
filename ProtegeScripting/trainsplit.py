@@ -1,8 +1,17 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-# Step 1: Read the CSV file into a DataFrame
-df = pd.read_csv('output.csv', header=None)
+# Step 1: Read the CSV file line by line and adjust the number of columns
+rows = []
+with open('output.csv', 'r') as file:
+    for line in file:
+        fields = line.strip().split(',')
+        if len(fields) < 26:
+            fields.extend([''] * (26 - len(fields)))
+        rows.append(fields)
+
+# Create a DataFrame from the adjusted rows
+df = pd.DataFrame(rows)
 
 # Step 2: Separate the data into features and labels
 # Assuming the first column is the label (User/Attacker) and the rest are features

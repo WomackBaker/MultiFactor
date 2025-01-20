@@ -1,0 +1,12 @@
+latitude,longitude,ipString,currentTime,availableMemory,rssi,timezone,Processors,Battery,Vendor,Model,systemPerformance,cpu,accel,gyro,magnet,screenWidth,screenLength,screenDensity,hasTouchScreen,hasCamera,hasFrontCamera,hasMicrophone,hasTemperatureSensor
+-69.231896,-139.33733500000002,10.0.2.209,2024-11-22 00:53:46,995045844,-28,Etc/UTC,4,98,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.142732,-138.613457,10.0.2.138,2024-11-22 18:49:32,1089425038,-31,Etc/UTC,4,94,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.902866,-139.338141,10.0.2.63,2024-11-22 09:38:02,1094740044,-20,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.882474,-138.489144,10.0.2.214,2024-11-22 00:34:35,1078641701,-32,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.029148,-139.231707,10.0.2.213,2024-11-22 19:40:48,1163089275,-24,Etc/UTC,4,92,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.767259,-139.373093,10.0.2.59,2024-11-22 00:52:14,1202628123,-37,Etc/UTC,4,94,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.294936,-138.810088,10.0.2.42,2024-11-22 02:49:47,1145289764,-29,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.261123,-138.638664,10.0.2.154,2024-11-22 01:56:59,1143459821,-34,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.173983,-138.769867,10.0.2.33,2024-11-22 18:46:54,1192431336,-20,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.155961,-138.86068,10.0.2.136,2024-11-22 17:29:37,1167417853,-36,Etc/UTC,4,93,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.245491,-139.284476,10.0.2.130,2024-11-22 02:24:47,1195275304,-26,Etc/UTC,4,91,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True

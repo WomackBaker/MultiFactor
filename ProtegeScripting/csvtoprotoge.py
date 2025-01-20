@@ -4,7 +4,7 @@ import rdflib
 from rdflib.namespace import RDF, RDFS, OWL, XSD
 
 # Path to the folder containing CSV files
-csv_folder = './data'
+csv_folder = './100data'
 
 # Path to your Protege ontology file
 ontology_path = './multifactor.rdf'
@@ -64,6 +64,8 @@ for filename in os.listdir(csv_folder):
 # Create data properties in the ontology using the sample row for type inference
 create_data_properties(data_properties, sample_row)
 
+users = []
+
 # Iterate over all CSV files in the folder
 for filename in os.listdir(csv_folder):
     if filename.endswith('.csv'):
@@ -78,6 +80,13 @@ for filename in os.listdir(csv_folder):
         g.add((user, RDFS.subClassOf, EX.Phones))
         phone_individual = EX[individual_name]
         g.add((phone_individual, RDF.type, user))
+
+        if user not in users:
+            users.append(user)
+            print("User added")
+        else:
+            print(f"ADDING {individual_name} SAME AS {username}.1")
+            g.add((EX[f"{username}.1"],OWL.sameAs, phone_individual))
 
         # Assign values to data properties for the first row only
         for _, row in df.iterrows():

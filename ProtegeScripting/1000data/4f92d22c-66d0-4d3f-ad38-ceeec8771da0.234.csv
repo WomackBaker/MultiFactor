@@ -1,0 +1,12 @@
+latitude,longitude,ipString,currentTime,availableMemory,rssi,timezone,Processors,Battery,Vendor,Model,systemPerformance,cpu,accel,gyro,magnet,screenWidth,screenLength,screenDensity,hasTouchScreen,hasCamera,hasFrontCamera,hasMicrophone,hasTemperatureSensor
+-69.384315,-138.664668,10.0.2.108,2024-11-22 14:19:44,1052434549,-36,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.389734,-139.21778300000003,10.0.2.183,2024-11-22 11:41:33,1012938219,-26,Etc/UTC,4,98,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.055011,-139.00517100000002,10.0.2.116,2024-11-22 09:04:31,981007556,-23,Etc/UTC,4,97,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.015557,-138.698938,10.0.2.104,2024-11-22 10:40:55,995219886,-21,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.354099,-138.858958,10.0.2.112,2024-11-22 02:49:54,1204498898,-35,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.347962,-139.406237,10.0.2.255,2024-11-22 09:19:21,1144156382,-35,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.12328600000001,-139.172235,10.0.2.202,2024-11-22 11:14:40,1017912103,-32,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.468097,-138.488052,10.0.2.75,2024-11-22 00:52:45,1105620988,-22,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.734012,-138.625753,10.0.2.58,2024-11-22 07:26:46,1071422238,-25,Etc/UTC,4,97,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.459839,-138.62984500000002,10.0.2.253,2024-11-22 02:41:19,1095246644,-35,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
+-69.703521,-138.59280700000002,10.0.2.132,2024-11-22 17:45:32,1043160093,-40,Etc/UTC,4,93,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
