@@ -43,8 +43,6 @@ def create_data_properties(properties, sample_row):
             g.add((data_property, RDFS.range, XSD.string))
         print(f"Created functional data property: {data_property} with inferred range")
     g.add((EX["propertyof"],RDFS.range, XSD.string))
-    g.add((EX["attacker"],RDFS.range, XSD.boolean))
-
 
 # List of data properties
 data_properties = [
@@ -76,8 +74,6 @@ for filename in os.listdir(csv_folder):
 
         # Use the filename (without extension) as the individual name
         individual_name = os.path.splitext(filename)[0]
-        individual_name = individual_name.replace("-", "")
-        individual_name = "id_"+individual_name
         username = individual_name.split(".")[0]
         user = EX[username]
         g.add((user, RDF.type, OWL.Class))
@@ -93,7 +89,6 @@ for filename in os.listdir(csv_folder):
             print(f"ADDING {individual_name} SAME AS {username}.1")
             g.add((EX[f"{username}.1"],OWL.sameAs, phone_individual))
         '''
-        
         # Assign values to data properties for the first row only
         for _, row in df.iterrows():
             for col, value in row.items():

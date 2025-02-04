@@ -7,7 +7,7 @@ from rdflib.namespace import RDF, RDFS, OWL, XSD
 csv_folder = './100data'
 
 # Path to your Protege ontology file
-ontology_path = './multifactor.rdf'
+ontology_path = './multifactor.owl'
 
 # Load or create the ontology
 g = rdflib.Graph()
@@ -84,15 +84,6 @@ for filename in os.listdir(csv_folder):
         g.add((user, RDFS.subClassOf, EX.Phones))
         phone_individual = EX[individual_name]
         g.add((phone_individual, RDF.type, user))
-
-        '''
-        if user not in users:
-            users.append(user)
-            print("User added")
-        else:
-            print(f"ADDING {individual_name} SAME AS {username}.1")
-            g.add((EX[f"{username}.1"],OWL.sameAs, phone_individual))
-        '''
         
         # Assign values to data properties for the first row only
         for _, row in df.iterrows():
@@ -114,7 +105,7 @@ for filename in os.listdir(csv_folder):
                     g.add((phone_individual, data_property, value))
             break  # Only process the first row
         g.add((phone_individual, EX["propertyof"], rdflib.Literal(username, datatype=XSD.string)))
-# Save the updated ontology in RDF format
-g.serialize(destination=ontology_path, format="xml")
+# Save the updated ontology in OWL format
+g.serialize(destination=ontology_path, format="pretty-xml")
 
 print("Ontology updated.")

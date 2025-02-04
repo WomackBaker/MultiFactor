@@ -25,13 +25,6 @@ def analyze_user(attributes):
     
     # Search for users matching the given attributes
     for user in onto.Phones.instances():
-        match = True
-        for attr, value in attributes.items():
-            if not hasattr(user, attr) or getattr(user, attr) != value:
-                match = False
-                break
-        if match:
-            return user.likelihood
     
     print("No matching user found.")
     return None
