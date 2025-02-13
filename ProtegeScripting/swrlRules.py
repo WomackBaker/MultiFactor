@@ -1,8 +1,6 @@
-import os
 import rdflib
 from rdflib.namespace import RDF, RDFS, OWL, XSD
 from owlready2 import *
-import multifactor
 
 # Path to your Protege ontology file
 ontology_path = './multifactor.rdf'
@@ -26,7 +24,6 @@ valid_id = ontology.search_one(iri="*id_5b95bc47726e4ec58c1d58e25e3c0f45")
 
 # Add SWRL rules to the ontology
 with ontology:
-    print(ontology.name)
     new_rule = Imp()
     new_rule.set_as_rule("""http://example.org/multifactor#id_5b95bc47726e4ec58c1d58e25e3c0f45(?u) ^ http://example.org/multifactor#longitude(?u, ?l) ^ notEqual(?l, 6) -> http://example.org/multifactor#attacker(?u, true)""")
 

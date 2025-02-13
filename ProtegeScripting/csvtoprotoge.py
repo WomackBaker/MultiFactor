@@ -41,7 +41,6 @@ def create_data_properties(properties, sample_row):
             g.add((data_property, RDFS.range, XSD.boolean))
         else:
             g.add((data_property, RDFS.range, XSD.string))
-        print(f"Created functional data property: {data_property} with inferred range")
     g.add((EX["propertyof"],RDFS.range, XSD.string))
     g.add((EX["attacker"],RDFS.range, XSD.boolean))
 
@@ -73,13 +72,16 @@ for filename in os.listdir(csv_folder):
     if filename.endswith('.csv'):
         file_path = os.path.join(csv_folder, filename)
         df = pd.read_csv(file_path)
-
         # Use the filename (without extension) as the individual name
         individual_name = os.path.splitext(filename)[0]
         individual_name = individual_name.replace("-", "")
+        individual_name = individual_name.replace(".", "__")
         individual_name = "id_"+individual_name
-        username = individual_name.split(".")[0]
+        
+        username = individual_name.split("__")[0]
         user = EX[username]
+        print(user)
+        
         g.add((user, RDF.type, OWL.Class))
         g.add((user, RDFS.subClassOf, EX.Phones))
         phone_individual = EX[individual_name]
