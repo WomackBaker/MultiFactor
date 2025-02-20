@@ -66,6 +66,10 @@ with onto:
     new_rule = Imp()
     attacker_class = type("attacker", (DataProperty,), {})
     attacker_class.range = [bool]
-    new_rule.set_as_rule(f"""id_5b95bc47726e4ec58c1d58e25e3c0f45__18(?u) ^ screenLength(?u, ?l) ^ notEqual(?l, 93) -> attacker(?u, true)""")
+    new_rule.set_as_rule(f"""id_5b95bc47726e4ec58c1d58e25e3c0f45__18(?u) ^ screenLength(?u, ?l) ^ lessThan(?l, 0) -> attacker(?u, true)""")
 # Run the reasoner
 sync_reasoner_pellet(infer_property_values=True, infer_data_property_values=True)
+
+test_indv = onto["id_5b95bc47726e4ec58c1d58e25e3c0f45__18"]
+if hasattr(test_indv, "attacker"):
+    print(f"{test_indv}.attacker: {test_indv.attacker}")
