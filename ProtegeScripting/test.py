@@ -11,7 +11,6 @@ with onto:
 
     class attacker(id_5b95bc47726e4ec58c1d58e25e3c0f451 >> bool, DataProperty): pass
 
-
     rule = Imp()
     rule.set_as_rule("""id_5b95bc47726e4ec58c1d58e25e3c0f451(?u) ^ longitude(?u,?l) ^ notEqual(?l, 5) -> attacker(?u, true)""")
 
