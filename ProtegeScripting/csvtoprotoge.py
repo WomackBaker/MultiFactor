@@ -3,120 +3,128 @@ import pandas as pd
 import rdflib
 from rdflib.namespace import RDF, RDFS, OWL, XSD
 
-# Path to the folder containing CSV files
 csv_folder = './100data'
-
-# Path to your Protege ontology file
 ontology_path = './multifactor.rdf'
 
-# Load or create the ontology
 g = rdflib.Graph()
 if os.path.exists(ontology_path):
     g.parse(ontology_path, format="xml")
 else:
-    # Create a new ontology
     g.bind("ex", "http://example.org/multifactor#")
-    print("Created new ontology file.")
 
-# Define namespaces
 EX = rdflib.Namespace("http://example.org/multifactor#")
 g.bind("ex", EX)
 
-# Define a function to create data properties and set their ranges
-def create_data_properties(properties, sample_row):
-    for prop in properties:
-        data_property = EX[prop]
-        g.add((data_property, RDF.type, OWL.DatatypeProperty))
-        g.add((data_property, RDFS.domain, EX.Phones))
-        
-        # Infer the range based on the sample value
-        sample_value = sample_row[prop]
-        if pd.isna(sample_value):
-            g.add((data_property, RDFS.range, XSD.string))  # Default to string if sample value is NaN
-        elif isinstance(sample_value, int):
-            g.add((data_property, RDFS.range, XSD.integer))
-        elif isinstance(sample_value, float):
-            g.add((data_property, RDFS.range, XSD.float))
-        elif isinstance(sample_value, bool):
-            g.add((data_property, RDFS.range, XSD.boolean))
-        else:
-            g.add((data_property, RDFS.range, XSD.string))
-    g.add((EX["propertyof"],RDFS.range, XSD.string))
-    g.add((EX["attacker"],RDFS.range, XSD.boolean))
-
-
-# List of data properties
 data_properties = [
-    "latitude", "longitude", "ipString", "currentTime", "availableMemory", "rssi", "timezone",
-    "Processors", "Battery", "Vendor", "Model", "systemPerformance", "cpu", "accel", "gyro",
-    "magnet", "screenWidth", "screenLength", "screenDensity", "hasTouchScreen", "hasCamera",
-    "hasFrontCamera", "hasMicrophone", "hasTemperatureSensor"
+    "latitude", "longitude", "ipString", "currentTime", "availableMemory", "rssi",
+    "timezone", "Processors", "Battery", "Vendor", "Model", "systemPerformance",
+    "cpu", "accel", "gyro", "magnet", "screenWidth", "screenLength",
+    "screenDensity", "hasTouchScreen", "hasCamera", "hasFrontCamera",
+    "hasMicrophone", "hasTemperatureSensor"
 ]
 
-# Iterate over all CSV files in the folder to get a sample row for type inference
-sample_row = None
+# Make sure Phones is declared as a class
+g.add((EX.Phones, RDF.type, OWL.Class))
+
+# Explicitly declare propertyof and attacker as DatatypeProperties
+g.add((EX.propertyof, RDF.type, OWL.DatatypeProperty))
+g.add((EX.propertyof, RDFS.domain, EX.Phones))
+g.add((EX.propertyof, RDFS.range, XSD.string))
+
+g.add((EX.attacker, RDF.type, OWL.DatatypeProperty))
+g.add((EX.attacker, RDFS.domain, EX.Phones))
+g.add((EX.attacker, RDFS.range, XSD.boolean))
+
+def guess_xsd_range_from_dtype(dtype):
+    if pd.api.types.is_integer_dtype(dtype):
+        return XSD.integer
+    if pd.api.types.is_float_dtype(dtype):
+        return XSD.float
+    if pd.api.types.is_bool_dtype(dtype):
+        return XSD.boolean
+    return XSD.string
+
+# Step 1: Check each CSV to set up data properties and their ranges
 for filename in os.listdir(csv_folder):
     if filename.endswith('.csv'):
         file_path = os.path.join(csv_folder, filename)
         df = pd.read_csv(file_path)
-        sample_row = df.iloc[0]
-        break  # Use the first row of the first CSV file as the sample
+        for col in data_properties:
+            if col in df.columns:
+                dp = EX[col]
+                g.add((dp, RDF.type, OWL.DatatypeProperty))
+                g.add((dp, RDFS.domain, EX.Phones))
 
-# Create data properties in the ontology using the sample row for type inference
-create_data_properties(data_properties, sample_row)
+                col_dtype = df[col].dtype
+                if col_dtype == object:
+                    try:
+                        df[col] = pd.to_numeric(df[col], errors='coerce')
+                        if pd.api.types.is_float_dtype(df[col].dtype):
+                            if df[col].dropna().eq(df[col].dropna().round()).all():
+                                df[col] = df[col].astype('Int64')
+                    except:
+                        pass
 
-users = []
+                col_dtype = df[col].dtype
+                # If it's an IP, force string
+                if col == "ipString":
+                    xsd_range = XSD.string
+                else:
+                    xsd_range = guess_xsd_range_from_dtype(col_dtype)
+                # Replace or set the range for this property
+                g.set((dp, RDFS.range, xsd_range))
 
-# Iterate over all CSV files in the folder
+# Step 2: Create individuals and add data property assertions
 for filename in os.listdir(csv_folder):
     if filename.endswith('.csv'):
         file_path = os.path.join(csv_folder, filename)
         df = pd.read_csv(file_path)
-        # Use the filename (without extension) as the individual name
+
+        for col in data_properties:
+            if col in df.columns and col != "ipString":
+                if df[col].dtype == object:
+                    try:
+                        df[col] = pd.to_numeric(df[col], errors='coerce')
+                    except:
+                        pass
+                if pd.api.types.is_float_dtype(df[col]):
+                    if df[col].dropna().eq(df[col].dropna().round()).all():
+                        df[col] = df[col].astype('Int64')
+
+        # Use the filename (sans extension) to build an individual name
         individual_name = os.path.splitext(filename)[0]
         individual_name = individual_name.replace("-", "")
         individual_name = individual_name.replace(".", "__")
-        individual_name = "id_"+individual_name
-        
+        individual_name = "id_" + individual_name
+
         username = individual_name.split("__")[0]
-        user = EX[username]
-        print(user)
-        
-        g.add((user, RDF.type, OWL.Class))
-        g.add((user, RDFS.subClassOf, EX.Phones))
+        user_class = EX[username]
+        g.add((user_class, RDF.type, OWL.Class))
+        g.add((user_class, RDFS.subClassOf, EX.Phones))
+
         phone_individual = EX[individual_name]
-        g.add((phone_individual, RDF.type, user))
+        g.add((phone_individual, RDF.type, user_class))
 
-        '''
-        if user not in users:
-            users.append(user)
-            print("User added")
-        else:
-            print(f"ADDING {individual_name} SAME AS {username}.1")
-            g.add((EX[f"{username}.1"],OWL.sameAs, phone_individual))
-        '''
-        
-        # Assign values to data properties for the first row only
-        for _, row in df.iterrows():
-            for col, value in row.items():
-                if col in data_properties:
-                    data_property = EX[col]
-                    # Skip NaN values
-                    if pd.isna(value):
-                        continue
-                    # Convert the value to the appropriate data type
-                    if g.value(data_property, RDFS.range) == XSD.integer:
-                        value = rdflib.Literal(int(value), datatype=XSD.integer)
-                    elif g.value(data_property, RDFS.range) == XSD.float:
-                        value = rdflib.Literal(float(value), datatype=XSD.float)
-                    elif g.value(data_property, RDFS.range) == XSD.boolean:
-                        value = rdflib.Literal(bool(value), datatype=XSD.boolean)
+        if not df.empty:
+            row = df.iloc[0]
+            for col, val in row.items():
+                if col in data_properties and not pd.isna(val):
+                    dp = EX[col]
+                    prop_range = g.value(dp, RDFS.range)
+                    if prop_range == XSD.integer:
+                        val_literal = rdflib.Literal(float(val), datatype=XSD.float)
+                    elif prop_range == XSD.float:
+                        val_literal = rdflib.Literal(float(val), datatype=XSD.float)
+                    elif prop_range == XSD.boolean:
+                        val_literal = rdflib.Literal(bool(val), datatype=XSD.boolean)
                     else:
-                        value = rdflib.Literal(str(value), datatype=XSD.string)
-                    g.add((phone_individual, data_property, value))
-            break  # Only process the first row
-        g.add((phone_individual, EX["propertyof"], rdflib.Literal(username, datatype=XSD.string)))
-# Save the updated ontology in RDF format
-g.serialize(destination=ontology_path, format="xml")
+                        val_literal = rdflib.Literal(str(val), datatype=XSD.string)
+                    g.add((phone_individual, dp, val_literal))
 
+            # Now use the two data properties we declared:
+            g.add((phone_individual, EX.propertyof, rdflib.Literal(username, datatype=XSD.string)))
+            g.add((phone_individual, EX.attacker, rdflib.Literal(False, datatype=XSD.boolean)))
+
+# Finally, save the updated graph
+g.serialize(destination=ontology_path, format="xml")
 print("Ontology updated.")
