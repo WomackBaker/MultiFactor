@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:ns1="http://example.org/employees/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <rdf:Description rdf:about="http://example.org/employees/employee_2">
+    <rdf:type rdf:resource="http://example.org/employees/Employee"/>
+    <ns1:name>Bob</ns1:name>
+    <ns1:position>Manager</ns1:position>
+    <ns1:salary rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">90000</ns1:salary>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/employees/employee_4">
+    <rdf:type rdf:resource="http://example.org/employees/Employee"/>
+    <ns1:name>Madeleine</ns1:name>
+    <ns1:position>Information Technology</ns1:position>
+    <ns1:salary rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">75000</ns1:salary>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/employees/employee_3">
+    <rdf:type rdf:resource="http://example.org/employees/Employee"/>
+    <ns1:name>Charlie</ns1:name>
+    <ns1:position>Analyst</ns1:position>
+    <ns1:salary rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">60000</ns1:salary>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/employees/employee_1">
+    <rdf:type rdf:resource="http://example.org/employees/Employee"/>
+    <ns1:name>Alice</ns1:name>
+    <ns1:position>Developer</ns1:position>
+    <ns1:salary rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">70000</ns1:salary>
+  </rdf:Description>
+</rdf:RDF>

@@ -23,12 +23,19 @@ try:
     """)
     print("Table created.")
 
-    # Step 3: Insert fake data
+    # Step 3: Delete existing data (to avoid duplicates)
+    print("Clearing existing data...")
+    cursor.execute("DELETE FROM employees")  # Removes all old records
+    conn.commit()
+    print("Old data cleared.")
+
+    # Step 4: Insert new fake data
     print("Inserting fake data...")
     fake_data = [
         (1, "Alice", "Developer", 70000),
         (2, "Bob", "Manager", 90000),
-        (3, "Charlie", "Analyst", 60000)
+        (3, "Charlie", "Analyst", 60000),
+        (4, "Madeleine", "Information Technology", 75000)
     ]
     cursor.executemany("INSERT INTO employees VALUES (?, ?, ?, ?)", fake_data)
     conn.commit()
