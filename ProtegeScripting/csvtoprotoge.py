@@ -35,6 +35,10 @@ g.add((EX.attacker, RDF.type, OWL.DatatypeProperty))
 g.add((EX.attacker, RDFS.domain, EX.Phones))
 g.add((EX.attacker, RDFS.range, XSD.boolean))
 
+g.add((EX.suspicious, RDF.type, OWL.DatatypeProperty))
+g.add((EX.suspicious, RDFS.domain, EX.Phones))
+g.add((EX.suspicious, RDFS.range, XSD.integer))
+
 def guess_xsd_range_from_dtype(dtype):
     if pd.api.types.is_integer_dtype(dtype):
         return XSD.integer
@@ -124,7 +128,10 @@ for filename in os.listdir(csv_folder):
             # Now use the two data properties we declared:
             g.add((phone_individual, EX.propertyof, rdflib.Literal(username, datatype=XSD.string)))
             g.add((phone_individual, EX.attacker, rdflib.Literal(False, datatype=XSD.boolean)))
+            g.add((phone_individual, EX.suspicious, rdflib.Literal(0, datatype=XSD.integer)))
 
 # Finally, save the updated graph
 g.serialize(destination=ontology_path, format="xml")
 print("Ontology updated.")
+
+
