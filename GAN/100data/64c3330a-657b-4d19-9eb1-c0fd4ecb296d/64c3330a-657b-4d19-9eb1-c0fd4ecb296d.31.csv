@@ -1,2 +1,2 @@
 latitude,longitude,ipString,currentTime,availableMemory,rssi,timezone,Processors,Battery,Vendor,Model,systemPerformance,cpu,accel,gyro,magnet,screenWidth,screenLength,screenDensity,hasTouchScreen,hasCamera,hasFrontCamera,hasMicrophone,hasTemperatureSensor
-65.5820773,130.115893,172.16.2.27,2024-11-07 22:20:12,512000000,-80,Etc/UTC,8,20,HackedDevice,AttackerModelPro,CompromisedCPU,malwarechip,1,0,0,1080,2340,480,True,True,False,True,False
+65.5716243,129.95354,192.168.56.101,2024-11-07 07:02:00,512874000,-80,Etc/UTC,8,15,HackedDevice,AttackerModelPro,CompromisedCPU,malwarechip,1,1,0,1080,2340,480,True,True,False,True,False

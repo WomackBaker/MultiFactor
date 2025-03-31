@@ -1,0 +1,4 @@
+id,latitude,longitude,ipString,currentTime,availableMemory,rssi,timezone,Processors,Battery,Vendor,Model,systemPerformance,cpu,accel,gyro,magnet,screenWidth,screenLength,screenDensity,hasTouchScreen,hasCamera,hasFrontCamera,hasMicrophone,hasTemperatureSensor
+af8e5508-83ae-41ac-9ffe-6cd750e52fe0,65.5820773,130.115893,10.0.2.27,2024-11-07 22:20:12,1078522802,-23,Etc/UTC,4,95,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1080,2148,440,True,True,True,True,True
+64c3330a-657b-4d19-9eb1-c0fd4ecb296d,65.5716243,129.95354,10.0.2.232,2024-11-07 07:02:00,1071282241,-20,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1080,2148,440,True,True,True,True,True
+5b95bc47-726e-4ec5-8c1d-58e25e3c0f45,65.3392913,129.897815,10.0.2.245,2024-11-07 17:01:43,982674685,-26,Etc/UTC,4,100,Google,sdk_gphone_x86_64,,ranchu,1,4,2,1440,2872,560,True,True,True,True,True
