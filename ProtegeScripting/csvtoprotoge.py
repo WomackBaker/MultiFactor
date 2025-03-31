@@ -33,6 +33,7 @@ g.add((EX.propertyof, RDF.type, OWL.DatatypeProperty))
 g.add((EX.propertyof, RDFS.domain, EX.Phones))
 g.add((EX.propertyof, RDFS.range, XSD.string))
 
+
 g.add((EX.attacker, RDF.type, OWL.DatatypeProperty))
 g.add((EX.attacker, RDFS.domain, EX.Phones))
 g.add((EX.attacker, RDFS.range, XSD.boolean))
@@ -124,6 +125,34 @@ for filename in os.listdir(csv_folder):
             g.add((phone_individual, EX.propertyof, rdflib.Literal(username, datatype=XSD.string)))
             g.add((phone_individual, EX.attacker, rdflib.Literal(False, datatype=XSD.boolean)))
             g.add((phone_individual, EX.suspicious, rdflib.Literal(0.0, datatype=XSD.float)))
+attacker_ttl = """
+@prefix ex: <http://example.org/multifactor#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:Attackers a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (
+            ex:Phones
+            [
+                a owl:Restriction ;
+                owl:onProperty ex:suspicious ;
+                owl:someValuesFrom [
+                    a rdfs:Datatype ;
+                    owl:onDatatype xsd:float ;
+                    owl:withRestrictions (
+                        [ xsd:minInclusive "8.0"^^xsd:float ]
+                    )
+                ]
+            ]
+        )
+    ] .
+"""
+
+# Parse the snippet into your graph (this properly encodes the logical restriction)
+g.parse(data=attacker_ttl, format="turtle")
 
 # Save the ontology
 g.serialize(destination=ontology_path, format="xml")

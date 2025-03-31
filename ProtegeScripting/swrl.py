@@ -16,7 +16,7 @@ def load_base_csv(path="base2.csv"):
         reader = csv.DictReader(csvfile)
         base_config = {}
         for row in reader:
-            raw_id = row['id'].replace("-", "")  # Normalize: remove dashes
+            raw_id = row['id'].replace("-", "")
             base_config[raw_id] = row
         return base_config
 
