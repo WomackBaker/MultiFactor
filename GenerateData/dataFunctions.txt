@@ -1,0 +1,40 @@
+Device
+- OS version
+- Device type
+- manufacturer
+- rooted
+
+Location
+- lat 
+- lon
+- region
+- location accuracy
+- location visit count of trusted area?
+
+Time
+- timestamp
+- time since last logon
+- session duration
+- time of day (maybe 1,2,3)?
+- day type (0,1)?
+
+Network
+- ip
+- rep of ip
+- vpn?
+
+Behavior
+- avg typ speed
+- click pattern
+
+
+Privileges
+- role
+- scope of access
+
+Risk Profile
+- login attempts
+- risk score
+
+System sensitivity
+- system mode (0,1)?
