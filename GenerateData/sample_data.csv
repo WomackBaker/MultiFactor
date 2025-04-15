@@ -1,21 +1,21 @@
-device_os_version,device_type,manufacturer,is_rooted,gps_latitude,gps_longitude,region,location_confidence_radius,location_visit_count,timestamp,time_since_last_login,session_duration,time_of_day,day_type,ip_address,ip_reputation,vpn_tor_usage,typing_speed,click_patterns,current_role,scope_of_access,failed_login_attempts,historic_risk_score,system_mode
-iOS 16,Tablet,Google,False,2.627194,-86.922649,EU-Central,38,46,2025-03-16T13:15:29.774466,1110,99,afternoon,weekend,85.211.113.140,Low,False,96,rapid,admin,standard-access,4,4.76,lockdown
-Android 12,Tablet,Huawei,True,84.434767,30.442169,US-West,31,23,2025-03-31T13:05:13.774466,670,68,afternoon,weekday,32.150.248.163,High,True,173,rapid,guest,privileged-access,5,6.2,normal
-iOS 16,Phone,Huawei,True,-24.096155,-37.220819,US-East,85,50,2025-03-12T21:46:15.774466,317,87,night,weekday,28.214.45.15,Low,False,95,average,basic,standard-access,4,64.69,lockdown
-Android 13,Phone,Huawei,True,-71.221457,135.559779,Asia-Pacific,57,27,2025-03-15T20:41:00.774466,1134,30,evening,weekend,240.216.240.101,Low,False,123,slow,guest,privileged-access,3,35.5,lockdown
-iOS 15,Tablet,Samsung,True,52.296675,-108.618773,Asia-Pacific,55,45,2025-03-15T21:03:41.774466,283,35,night,weekend,63.242.20.184,High,False,52,slow,admin,read-only,0,54.39,normal
-Android 12,Tablet,Apple,False,-36.673226,-112.531368,Asia-Pacific,98,30,2025-03-13T18:08:42.774466,464,90,evening,weekday,123.213.81.26,Medium,True,156,average,basic,privileged-access,3,16.46,lockdown
-iOS 16,Tablet,Samsung,True,7.875565,50.506149,US-East,55,41,2025-03-15T18:06:29.774466,1108,50,evening,weekend,177.233.22.141,Medium,False,161,slow,basic,privileged-access,1,85.43,normal
-iOS 15,Tablet,Xiaomi,False,75.877891,-4.616577,EU-Central,43,5,2025-03-16T08:55:18.774466,1151,6,morning,weekend,215.242.61.149,Low,False,123,average,guest,standard-access,4,26.16,normal
-iOS 15,Phone,Samsung,True,85.124537,4.65571,US-East,73,40,2025-04-06T04:04:11.774466,166,118,night,weekend,165.28.93.41,High,False,116,rapid,guest,privileged-access,0,61.19,lockdown
-Android 12,Phone,Huawei,False,-27.807992,-21.233977,US-East,71,1,2025-03-26T10:28:28.774466,211,2,morning,weekday,17.170.80.213,Medium,False,134,average,guest,read-only,0,66.68,lockdown
-Android 13,Tablet,Huawei,False,67.476962,170.926631,EU-Central,67,40,2025-04-05T15:09:16.774466,154,98,afternoon,weekend,183.142.47.140,Medium,False,200,average,basic,privileged-access,3,21.01,lockdown
-iOS 15,Tablet,Apple,True,-5.508503,-39.908659,EU-Central,33,26,2025-03-27T00:09:40.774466,145,75,night,weekday,43.12.123.158,High,True,97,average,admin,standard-access,5,13.29,normal
-Android 13,Tablet,Apple,True,16.462182,131.422141,EU-Central,93,43,2025-03-09T10:13:25.774466,1006,57,morning,weekend,182.146.202.231,High,False,52,rapid,guest,privileged-access,5,28.9,lockdown
-Android 13,Phone,Xiaomi,False,-39.966031,22.126182,EU-Central,39,50,2025-03-18T12:00:31.774466,362,83,afternoon,weekday,32.154.153.212,Medium,False,181,slow,guest,privileged-access,4,44.3,lockdown
-Android 12,Phone,Apple,False,68.355998,-95.502366,US-West,76,50,2025-04-07T06:52:41.774466,611,8,morning,weekday,109.22.178.83,Low,True,94,slow,admin,read-only,0,43.12,lockdown
-iOS 15,Phone,Samsung,True,-77.306656,-47.762524,US-East,75,39,2025-03-19T13:27:47.774466,456,98,afternoon,weekday,36.209.250.19,Low,False,96,rapid,admin,standard-access,5,93.19,lockdown
-iOS 16,Tablet,Apple,False,69.322338,-145.14943,EU-Central,42,45,2025-03-31T14:19:04.774466,1397,13,afternoon,weekday,80.145.246.183,Low,False,82,average,basic,standard-access,2,12.22,normal
-Android 13,Phone,Huawei,True,-26.856596,-148.804496,US-West,88,11,2025-03-31T11:52:09.774466,136,27,morning,weekday,67.137.169.233,Medium,False,147,rapid,guest,standard-access,3,7.92,normal
-iOS 16,Phone,Huawei,True,-89.53046,132.725215,EU-Central,19,14,2025-03-15T14:21:05.774466,1435,76,afternoon,weekend,21.74.53.119,High,True,184,slow,basic,read-only,0,77.85,lockdown
-Android 12,Tablet,Google,False,41.609303,92.926372,Asia-Pacific,77,41,2025-03-19T17:37:13.774466,650,29,evening,weekday,226.33.143.50,High,False,155,slow,guest,privileged-access,0,97.09,lockdown
+region_tz_code,os_code,device_type_code,manufacturer_code,is_rooted,gps_latitude,gps_longitude,location_conf_radius,location_visit_count,shift_profile_code,session_start_epoch,session_duration_mins,time_since_last_login_mins,day_type_code,ip_address_as_int,ip_reputation_code,vpn_tor_usage,typing_speed_cpm,click_pattern_code,role_code,scope_code,failed_login_attempts,historic_risk_score,system_mode_code
+1.1,2,0,5,0,34.305114,-77.642759,54,11,1,1742811238,29,187,1,2650479514,1,1,78,3,1,2,3,28.47,1
+1.2,2,0,4,0,30.513263,-99.20201,37,47,3,1743763252,40,655,0,3347519496,3,0,200,2,3,1,4,47.8,0
+1.1,2,1,2,0,42.072705,-83.012807,52,48,2,1743402444,6,1017,0,1211019717,2,1,27,2,2,2,1,44.87,0
+1.3,1,0,3,0,45.380764,-123.683331,64,30,3,1742689294,28,144,1,2609980494,3,0,67,2,2,1,5,67.55,1
+1.2,1,0,2,0,36.27433,-98.713144,62,12,1,1743736332,224,286,0,3489445554,1,0,97,1,2,2,0,75.47,0
+1.3,3,1,1,1,39.539075,-122.944226,45,10,3,1742657657,1,1056,0,2835082553,2,1,104,1,2,1,0,45.7,1
+1.3,4,1,1,1,43.957764,-122.145188,16,50,2,1742651684,51,816,1,411271736,3,0,95,3,1,1,2,38.68,1
+1.2,3,0,1,0,35.781615,-99.94445,25,3,1,1742336733,68,129,0,2824366098,1,1,21,3,1,1,0,69.44,1
+1.3,2,1,2,0,42.445613,-117.594763,18,44,2,1743977386,9,1420,1,1144012599,3,0,67,2,2,1,1,82.63,1
+1.3,1,0,3,0,47.887301,-123.594271,64,32,2,1743582232,318,191,0,2395759044,1,1,185,3,1,1,4,27.64,0
+1.3,2,1,2,0,35.978185,-116.495946,89,18,3,1742756661,195,380,1,3229260979,2,0,143,1,2,1,3,0.02,0
+1.3,1,0,2,0,42.816639,-114.712976,61,49,1,1743399203,48,1440,1,3630168472,1,0,192,1,3,1,4,69.98,0
+1.1,4,0,1,1,33.952841,-82.368889,58,22,1,1742531400,123,945,0,2607603363,3,1,47,1,2,1,4,82.74,1
+1.1,1,1,2,0,39.513886,-76.823302,17,3,3,1743378044,61,1253,1,2363988860,3,0,153,3,3,1,2,0.55,1
+1.3,4,1,1,1,36.151553,-115.292911,24,23,1,1741992853,13,955,0,2550243041,3,1,112,3,3,1,5,19.96,1
+1.1,3,0,1,1,46.224975,-76.285043,68,46,2,1744021494,6,1082,1,2552294939,1,1,29,3,1,2,0,74.35,1
+1.3,1,0,2,0,46.831799,-122.334237,56,6,3,1744155749,125,687,0,2612244494,3,0,135,1,1,1,1,39.74,1
+1.3,1,0,4,1,47.357442,-114.965704,69,8,2,1741724392,256,1415,0,2603605109,2,1,50,2,1,2,3,54.67,1
+1.2,3,1,1,0,40.106119,-98.992043,97,14,3,1744205548,148,495,0,2192782969,1,0,182,3,2,1,1,77.01,0
+1.2,2,0,4,1,39.409092,-98.785908,70,7,2,1743030847,62,421,0,1672265987,2,1,88,2,2,2,0,13.18,1
