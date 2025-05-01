@@ -121,7 +121,7 @@ def generate_synthetic_users(generator, scaler, num_samples, numeric_cols, bool_
     return synthetic_denorm
 
 if __name__ == "__main__":
-    file_path = "sample_data.csv"  # Replace with the path to your specific file
+    file_path = "..\GenerateData\sample_data2.csv"  # Replace with the path to your specific file
 
     if not os.path.exists(file_path):
         print("File not found. Please check the file path.")
@@ -142,7 +142,7 @@ if __name__ == "__main__":
             synthetic_rows = generate_synthetic_users(
                 generator=generator,
                 scaler=scaler_obj,
-                num_samples=5,
+                num_samples=1,
                 numeric_cols=NUMERIC_COLS,
                 bool_cols=BOOL_COLS
             )
