@@ -7,7 +7,7 @@ import os
 # Config
 INPUT_CSV = "../GAN/output.csv"   # Change as needed
 OUTPUT_DIR = "output"
-ATTACKER_COUNT = 100
+ATTACKER_COUNT = 200
 BOOL_COLS = ['is_rooted', 'vpn_tor_usage']
 NUMERIC_COLS = [
     'region_tz_code', 'os_code', 'device_type_code', 'manufacturer_code', 'gps_latitude',
