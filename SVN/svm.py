@@ -101,14 +101,14 @@ if __name__ == '__main__':
         'knn': './test_result_knn.csv',
         'rf':  './test_result_rf.csv'
     }
-    input_train_data = pd.read_csv('./train.csv', header=None, delimiter=',')
+    input_train_data = pd.read_csv('./output/train.csv')
     input_train_data = input_train_data.fillna(0)
-    train_features = np.array(input_train_data.iloc[2:, 2:-1])
-    train_labels = np.array(input_train_data.iloc[2:, -1]).reshape((-1, 1))
-    input_test_data = pd.read_csv('./test.csv', header=None, delimiter=',')
+    train_features = np.array(input_train_data.iloc[:, :-1])
+    train_labels = np.array(input_train_data.iloc[:, -1]).astype(int).reshape((-1, 1))
+    input_test_data = pd.read_csv('./output/test.csv')
     input_test_data = input_test_data.fillna(0)
-    test_features = np.array(input_test_data.iloc[2:, 2:-1])
-    test_labels = np.array(input_test_data.iloc[2:, -1]).reshape((-1, 1))
+    test_features = np.array(input_test_data.iloc[:, :-1])
+    test_labels = np.array(input_test_data.iloc[:, -1]).astype(int).reshape((-1, 1))
     if not is_normalized:
         print("Performing normalization and saving scaler...")
         normalize_train_test(train_features, test_features, save_scaler_to)
