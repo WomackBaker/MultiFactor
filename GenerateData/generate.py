@@ -99,7 +99,7 @@ HEADERS = [
     "system_mode_code"
 ]
 
-def write_csv(name="sample_data.csv", users=100, rows_per_user=100):
+def write_csv(name="sample_data.csv", users=100, rows_per_user=1000):
     with open(name, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(HEADERS)

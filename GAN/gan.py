@@ -194,7 +194,7 @@ if __name__ == "__main__":
 
     gen, disc = train_gan_model(real_cont, real_cat, LATENT_DIM)
 
-    synthetic_users = generate_synthetic_users(gen, scaler, cont_cols, num_samples=1000)
+    synthetic_users = generate_synthetic_users(gen, scaler, cont_cols, num_samples=10000)
 
     column_order = [
         'region_tz_code', 'os_code', 'device_type_code', 'manufacturer_code', 'is_rooted',

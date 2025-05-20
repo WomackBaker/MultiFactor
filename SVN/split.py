@@ -8,7 +8,7 @@ from typing import List, Tuple
 # --- Configuration ---
 INPUT_CSV_PATH = "../GAN/output.csv"
 OUTPUT_DIR = "output"
-ATTACKER_COUNT = 500 # Number of synthetic attacker samples to generate
+ATTACKER_COUNT = 1000 # Number of synthetic attacker samples to generate
 
 BOOLEAN_COLS: List[str] = ['is_rooted', 'vpn_tor_usage']
 
@@ -18,8 +18,7 @@ NUMERIC_COLS: List[str] = [
     'shift_profile_code', 'session_start_epoch', 'session_duration_mins',
     'time_since_last_login_mins', 'day_type_code', 'ip_address_as_int',
     'ip_reputation_code', 'typing_speed_cpm', 'click_pattern_code',
-    'role_code', 'scope_code', # 'scope_code' is the original target label, will be ignored for synthetic generation but included as a feature if needed
-    'failed_login_attempts', 'historic_risk_score', 'system_mode_code'
+    'role_code', 'scope_code', 'failed_login_attempts', 'historic_risk_score', 'system_mode_code'
 ]
 
 # --- Helper Functions ---
