@@ -7,6 +7,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 from sklearn.preprocessing import MinMaxScaler
 import sys
+from datetime import datetime
 
 # --- Configuration Constants ---
 LATENT_DIM      = 16
@@ -330,13 +331,15 @@ def generate_synthetic_users(generator, scaler, cont_cols, num_samples=1):
 if __name__ == "__main__":
     sample_num = int(sys.argv[1])
 
-    if (not sample_num) or int(sample_num) <= 0:
+    if (not sample_num) or sample_num <= 0:
         print("Usage: python gan.py <number_of_samples>")
         exit(1)
 
     file_path = "../GenerateData/sample_data.csv"
-    output_path = "output_with_trust_scores.csv" # Changed output filename
+    output_path = "output_with_trust_scores.csv"
 
+    time = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+    save_path = f"./saved/{sample_num}_{time}.csv"
     if not os.path.exists(file_path):
         print(f"Error: Input file not found at '{file_path}'. Please check the file path.")
         exit(1)
@@ -389,4 +392,5 @@ if __name__ == "__main__":
     
     # Save the synthetic data with trust scores to a CSV file
     df_synthetic.to_csv(output_path, index=False)
+    df_synthetic.to_csv(save_path, index=False)
     print(f"Synthetic data with trust scores saved to '{output_path}'")

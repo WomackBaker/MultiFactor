@@ -6,7 +6,6 @@ import os
 from typing import List, Tuple, Dict
 import sys
 
-INPUT_CSV_PATH = "../GAN/output_with_trust_scores.csv"
 OUTPUT_DIR = "output"
 
 BOOLEAN_COLS: List[str] = ['is_rooted', 'vpn_tor_usage']
@@ -48,10 +47,17 @@ def generate_synthetic_data(base_df: pd.DataFrame, count: int) -> pd.DataFrame:
 
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    ATTACKER_COUNT = sys.argv[1] 
+    ATTACKER_COUNT = sys.argv[1]
+    data_path = sys.argv[2]
     if not ATTACKER_COUNT.isdigit() or int(ATTACKER_COUNT) <= 0:
         print("python split.py <attacker_count>")
         exit(1)
+    if not os.path.exists(data_path):
+        print("Default data will be used")
+        data_path = "../GAN/output_with_trust_scores.csv"
+
+    INPUT_CSV_PATH = data_path
+
     try:
         df = pd.read_csv(INPUT_CSV_PATH)
     except FileNotFoundError:
