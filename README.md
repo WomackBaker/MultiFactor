@@ -9,9 +9,9 @@ This project is mainly divided into three sections: training, analyzing, and **i
 `Directories:`
 - GAN
 - GenerateData
-- SVN
+- SVM
 
-To use this, run generate.py to create a combination of different users and the number of entry from each user. Next, run gan.py to generate as many new data points as needed for the SVN. Use the split.py tool in the SVN directory to split and can increase/decrease the number of "attackers" for the data. Finally run svn.py to train and test the data. It will output to terminal the data points and will create a ROC curve.
+To use this, run generate.py to create a combination of different users and the number of entry from each user. Next, run gan.py to generate as many new data points as needed for the SVM. Use the split.py tool in the SVM directory to split and can increase/decrease the number of "attackers" for the data. Finally run SVM.py to train and test the data. It will output to terminal the data points and will create a ROC curve.
 
 # Analysis
 
@@ -93,7 +93,7 @@ This entire **infrastructure** was set up and tore down using kubernetes which i
 ├── LogDocker/
 ├── MultiFactorApp/
 ├── ProtegeScripting/
-├── SVN/
+├── SVM/
 │   ├── split.py
 │   ├── test_result_rf.csv
 │   ├── roc_curve_rf.png
@@ -132,7 +132,7 @@ Contains scripts for generating synthetic data for testing and training.
 - **range.txt**: Range definitions for data generation.
 - **dataFunctions.txt**: Functions used for data generation.
 
-### SVN
+### SVM
 Contains scripts for Support Vector Machine (SVM) training and evaluation.
 
 - **split.py**: Script for splitting data into training and testing sets.

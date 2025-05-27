@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import csv, random, time, datetime, math
+import csv, random, time, datetime, math, sys
 
 REGIONS = {
     1.1: {"lat_min": 25, "lat_max": 47, "lon_min": -84,  "lon_max": -67},
@@ -110,4 +110,6 @@ def write_csv(name="sample_data.csv", users=100, rows_per_user=1000):
     print(f"[+] {users * rows_per_user:,} rows written → {name}")
 
 if __name__ == "__main__":
-    write_csv()
+    users = sys.argv[1] if len(sys.argv) > 1 else "100"
+    rows_per_user = sys.argv[2] if len(sys.argv) > 2 else "1000"
+    write_csv(users=int(users), rows_per_user=int(rows_per_user))

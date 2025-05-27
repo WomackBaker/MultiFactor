@@ -18,7 +18,7 @@ def generate_attacker_data(base_data):
     return [0 if random.random() < 0.3 else val for val in base_data]
 
 # Open the CSV file for writing
-with open('SVN.csv', 'w', newline='') as csvfile:
+with open('SVM.csv', 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)
     
     # Write user rows
