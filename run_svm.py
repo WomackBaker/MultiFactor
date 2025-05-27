@@ -19,8 +19,8 @@ def main():
 
     python_cmd = 'python.exe' if os.name == 'nt' else 'python'
 
-    run_command(f"cd GenerateData && {python_cmd} generate.py {args.gen_users} {args.gen_rows}")
-    run_command(f"cd GAN && {python_cmd} gan.py {args.data_samples}")
+    run_command(f"cd GenerateData && {python_cmd} generate.py {args.users} {args.rows}")
+    run_command(f"cd GAN && {python_cmd} gan.py {args.samples}")
     run_command(f"cd SVM && {python_cmd} split.py {args.attackers}")
     run_command(f"cd SVM && {python_cmd} svm.py")
     run_command(f"cd SVM && {python_cmd} fpr_fnr.py")
