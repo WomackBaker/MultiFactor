@@ -11,9 +11,9 @@ def run_command(command, cwd=None):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--gen_users', type=int, default=100)
-    parser.add_argument('--gen_rows', type=int, default=1000)
-    parser.add_argument('--data_samples', type=int, default=10000)
+    parser.add_argument('--users', type=int, default=100)
+    parser.add_argument('--rows', type=int, default=1000)
+    parser.add_argument('--samples', type=int, default=10000)
     parser.add_argument('--attackers', type=int, default=2000)
     args = parser.parse_args()
 
