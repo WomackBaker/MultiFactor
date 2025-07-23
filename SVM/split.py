@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 import os
 import sys
 import random
-from typing import List, Tuple, Dict
+from typing import List, Tuple
 
 OUTPUT_DIR = "output"
 
@@ -21,15 +21,12 @@ NUMERIC_COLS: List[str] = [
     'historic_risk_score', 'system_mode_code'
 ]
 
-# --- IP Spoof Attack Generator ---
-def generate_ip_spoof_attack(user_row: pd.Series) -> pd.Series:
+def generate_ip_spoof_attack(user_row):
     spoofed_row = user_row.copy()
-    # Slightly different IP (e.g., same subnet but different last octet)
-    spoofed_row['ip_address_as_int'] += random.randint(100, 1000)
-    # Still an impossible travel but smaller
-    spoofed_row['location_conf_radius'] += 500
-    # Quick login, but not zero time
-    spoofed_row['time_since_last_login_mins'] = random.randint(1, 5)
+    spoofed_row['ip_address_as_int'] += random.randint(2000, 5000)
+    spoofed_row['location_conf_radius'] += random.randint(200, 500)
+    spoofed_row['time_since_last_login_mins'] = random.randint(1, 3)
+    spoofed_row['label'] = 1
     return spoofed_row
 
 def _bool_to_int(x) -> int:
@@ -40,16 +37,16 @@ def _bool_to_int(x) -> int:
     except (ValueError, TypeError):
         return 0
 
-def normalize_features(df: pd.DataFrame, features_to_scale: List[str]) -> Tuple[pd.DataFrame, MinMaxScaler]:
+def normalize_features(df: pd.DataFrame) -> Tuple[pd.DataFrame, MinMaxScaler]:
     df_copy = df.copy()
     for col in BOOLEAN_COLS:
         if col in df_copy.columns:
             df_copy[col] = df_copy[col].apply(_bool_to_int)
-    cols_to_scale_existing = [col for col in features_to_scale if col in df_copy.columns]
     scaler = MinMaxScaler()
-    df_scaled_values = scaler.fit_transform(df_copy[cols_to_scale_existing])
-    df_scaled = pd.DataFrame(df_scaled_values, columns=cols_to_scale_existing, index=df_copy.index)
-    return df_scaled, scaler
+    scaled_values = scaler.fit_transform(df_copy.drop(columns=['label']))
+    scaled_df = pd.DataFrame(scaled_values, columns=df_copy.drop(columns=['label']).columns, index=df_copy.index)
+    scaled_df['label'] = df_copy['label']
+    return scaled_df, scaler
 
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -65,29 +62,29 @@ def main():
 
     df = pd.read_csv(data_path)
 
-    ml_feature_cols = [col for col in NUMERIC_COLS + BOOLEAN_COLS if col in df.columns]
-    df_features_original = df[ml_feature_cols].copy()
-    df_features_original['label'] = 0
+    feature_cols = [col for col in NUMERIC_COLS + BOOLEAN_COLS if col in df.columns]
+    normal_df = df[feature_cols].copy()
+    normal_df['label'] = 0
 
-    # normalize original features
-    df_scaled_features_original, _ = normalize_features(df_features_original, ml_feature_cols)
-    df_scaled_features_original['label'] = 0  # normal data
-
-    # --- Generate IP Spoofing Attacks ---
+    # --- Generate attackers ---
     attackers = []
     for _ in range(ATTACKER_COUNT):
-        sample_user = df_features_original.sample(n=1).iloc[0]
+        sample_user = normal_df.sample(n=1).iloc[0]
         attacker_row = generate_ip_spoof_attack(sample_user)
         attackers.append(attacker_row)
     attackers_df = pd.DataFrame(attackers)
-    attackers_df['label'] = 1  # attackers
 
-    # combine normal and attack data
-    combined_df = pd.concat([df_features_original, attackers_df], ignore_index=True)
-    combined_df_scaled, _ = normalize_features(combined_df.drop(columns=['label']), ml_feature_cols)
-    combined_df_scaled['label'] = combined_df['label']
+    # Combine normal + attacker
+    combined_df = pd.concat([normal_df, attackers_df], ignore_index=True)
 
-    # train/test split
+    # Debug attacker differences BEFORE normalization
+    print("\n[DEBUG] Sample attacker rows BEFORE normalization:")
+    print(attackers_df.head())
+
+    # Normalize entire dataset at once
+    combined_df_scaled, _ = normalize_features(combined_df)
+
+    # Split into train/test
     X = combined_df_scaled.drop(columns=['label'])
     y = combined_df_scaled['label']
     X_train, X_test, y_train, y_test = train_test_split(
@@ -100,7 +97,7 @@ def main():
     train_df_final.to_csv(os.path.join(OUTPUT_DIR, "train.csv"), index=False)
     test_df_final.to_csv(os.path.join(OUTPUT_DIR, "test.csv"), index=False)
 
-    print(f"[+] Successfully wrote train.csv and test.csv to '{OUTPUT_DIR}'")
+    print(f"\n[+] Successfully wrote train.csv and test.csv to '{OUTPUT_DIR}'")
     print(f"Total samples: {len(combined_df_scaled)}")
     print(f"Train size: {len(train_df_final)} (Attackers: {y_train.sum()})")
     print(f"Test size: {len(test_df_final)} (Attackers: {y_test.sum()})")
