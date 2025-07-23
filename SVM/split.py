@@ -24,9 +24,12 @@ NUMERIC_COLS: List[str] = [
 # --- IP Spoof Attack Generator ---
 def generate_ip_spoof_attack(user_row: pd.Series) -> pd.Series:
     spoofed_row = user_row.copy()
-    spoofed_row['ip_address_as_int'] = random.randint(10_000_000, 20_000_000)
-    spoofed_row['location_conf_radius'] = 10000
-    spoofed_row['time_since_last_login_mins'] = 0
+    # Slightly different IP (e.g., same subnet but different last octet)
+    spoofed_row['ip_address_as_int'] += random.randint(100, 1000)
+    # Still an impossible travel but smaller
+    spoofed_row['location_conf_radius'] += 500
+    # Quick login, but not zero time
+    spoofed_row['time_since_last_login_mins'] = random.randint(1, 5)
     return spoofed_row
 
 def _bool_to_int(x) -> int:

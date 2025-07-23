@@ -27,7 +27,14 @@ def train_svm(features, labels):
     cv = StratifiedShuffleSplit(n_splits=3, test_size=0.20, random_state=0)
     
     print("Starting GridSearchCV for SVM...")
-    grid = GridSearchCV(SVC(probability=True, random_state=42), param_grid=param_grid, cv=cv, error_score='raise', n_jobs=-1, verbose=1)
+    grid = GridSearchCV(SVC(probability=True,
+                        random_state=42,
+                        class_weight="balanced"),
+                    param_grid=param_grid,
+                    cv=cv,
+                    error_score='raise',
+                    n_jobs=-1,
+                    verbose=1)
     grid.fit(features, labels)
     
     print(f"SVM - Best params: {grid.best_params_}, CV score={grid.best_score_:.2f}")
