@@ -26,11 +26,11 @@ def generate_ip_spoof_attack(user_row):
     spoofed_row['location_conf_radius'] += random.randint(200, 500)
     spoofed_row['time_since_last_login_mins'] = random.randint(1, 3)
 
-    # 70% low trust, 30% high trust to simulate realistic camouflage
+    # 70% low trust, 30% higher trust (to simulate camouflage)
     if random.random() < 0.7:
         spoofed_row['trust_score'] = random.uniform(0.0, 0.5)
     else:
-        spoofed_row['trust_score'] = random.uniform(0.7, 1.0)
+        spoofed_row['trust_score'] = random.uniform(0.7, .9)
 
     spoofed_row['label'] = 1
     return spoofed_row
@@ -54,12 +54,18 @@ def normalize_features(df: pd.DataFrame) -> Tuple[pd.DataFrame, MinMaxScaler]:
     scaled_df['label'] = df_copy['label'].values
     return scaled_df, scaler
 
-def flip_labels(df: pd.DataFrame, flip_fraction=0.05):
+def flip_labels(df: pd.DataFrame, flip_fraction=0.03):
     total = len(df)
     flip_count = int(total * flip_fraction)
     flip_indices = np.random.choice(df.index, flip_count, replace=False)
     df.loc[flip_indices, 'label'] = 1 - df.loc[flip_indices, 'label']
     print(f"[DEBUG] Flipped {flip_count} labels for noise injection.")
+    return df
+
+def adjust_trust_scores(df: pd.DataFrame):
+    # Attackers slightly lower trust, normals slightly higher
+    df.loc[df['label'] == 1, 'trust_score'] *= np.random.uniform(0.7, 0.9)
+    df.loc[df['label'] == 0, 'trust_score'] *= np.random.uniform(1.0, 1.1)
     return df
 
 def main():
@@ -90,8 +96,11 @@ def main():
 
     combined_df = pd.concat([normal_df, attackers_df], ignore_index=True)
 
-    # Flip 5% of labels randomly
-    combined_df = flip_labels(combined_df, flip_fraction=0.05)
+    # Inject slight label noise
+    combined_df = flip_labels(combined_df, flip_fraction=0.02)
+
+    # Adjust trust scores slightly for realism
+    combined_df = adjust_trust_scores(combined_df)
 
     print("\n[DEBUG] Trust score mean by class BEFORE normalization:")
     print(combined_df.groupby('label')['trust_score'].mean())
