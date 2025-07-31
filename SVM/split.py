@@ -10,7 +10,6 @@ from typing import List, Tuple
 OUTPUT_DIR = "output"
 
 BOOLEAN_COLS: List[str] = ['is_rooted', 'vpn_tor_usage']
-
 NUMERIC_COLS: List[str] = [
     'region_tz_code', 'os_code', 'device_type_code', 'manufacturer_code',
     'gps_latitude', 'gps_longitude', 'location_conf_radius', 'location_visit_count',
@@ -18,25 +17,22 @@ NUMERIC_COLS: List[str] = [
     'time_since_last_login_mins', 'day_type_code', 'ip_address_as_int',
     'ip_reputation_code', 'typing_speed_cpm', 'click_pattern_code',
     'role_code', 'scope_code', 'failed_login_attempts',
-    'historic_risk_score', 'system_mode_code', 'trust_score'
+    'historic_risk_score', 'system_mode_code'
 ]
 
 def generate_ip_spoof_attack(user_row):
     spoofed_row = user_row.copy()
-
-    # IP spoof anomaly
     spoofed_row['ip_address_as_int'] += random.randint(2000, 5000)
     spoofed_row['location_conf_radius'] += random.randint(200, 500)
     spoofed_row['time_since_last_login_mins'] = random.randint(1, 3)
 
-    # Trust score overlap (attackers not always super low)
-    spoofed_row['trust_score'] = round(random.uniform(0.2, 0.8), 3)
-
-    # Add random noise to *all* numeric features to create overlap
-    for col in NUMERIC_COLS:
-        if col in spoofed_row and col != 'trust_score':
-            noise = random.uniform(-0.1, 0.1)  # small shift
-            spoofed_row[col] = spoofed_row[col] * (1 + noise)
+    # --- Trust score overlap ---
+    if random.random() < 0.7:
+        # 70% low trust (clear attackers)
+        spoofed_row['trust_score'] = random.uniform(0.0, 0.5)
+    else:
+        # 30% attackers look normal
+        spoofed_row['trust_score'] = random.uniform(0.7, 1.0)
 
     spoofed_row['label'] = 1
     return spoofed_row
@@ -74,11 +70,11 @@ def main():
 
     df = pd.read_csv(data_path)
 
-    feature_cols = [col for col in NUMERIC_COLS + BOOLEAN_COLS if col in df.columns]
+    feature_cols = [col for col in NUMERIC_COLS + BOOLEAN_COLS + ['trust_score'] if col in df.columns]
     normal_df = df[feature_cols].copy()
     normal_df['label'] = 0
 
-    # --- Generate attackers with noise ---
+    # --- Generate attackers with overlapping trust scores ---
     attackers = []
     for _ in range(ATTACKER_COUNT):
         sample_user = normal_df.sample(n=1).iloc[0]
@@ -86,17 +82,13 @@ def main():
         attackers.append(attacker_row)
     attackers_df = pd.DataFrame(attackers)
 
-    # Combine normal + attacker
     combined_df = pd.concat([normal_df, attackers_df], ignore_index=True)
 
-    # Check trust score overlap BEFORE normalization
     print("\n[DEBUG] Trust score mean by class BEFORE normalization:")
     print(combined_df.groupby('label')['trust_score'].mean())
 
-    # Normalize entire dataset at once
     combined_df_scaled, _ = normalize_features(combined_df)
 
-    # Split into train/test
     X = combined_df_scaled.drop(columns=['label'])
     y = combined_df_scaled['label']
     X_train, X_test, y_train, y_test = train_test_split(
