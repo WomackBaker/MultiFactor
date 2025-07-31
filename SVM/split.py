@@ -26,12 +26,10 @@ def generate_ip_spoof_attack(user_row):
     spoofed_row['location_conf_radius'] += random.randint(200, 500)
     spoofed_row['time_since_last_login_mins'] = random.randint(1, 3)
 
-    # --- Trust score overlap ---
+    # 70% low trust, 30% high trust to simulate realistic camouflage
     if random.random() < 0.7:
-        # 70% low trust (clear attackers)
         spoofed_row['trust_score'] = random.uniform(0.0, 0.5)
     else:
-        # 30% attackers look normal
         spoofed_row['trust_score'] = random.uniform(0.7, 1.0)
 
     spoofed_row['label'] = 1
@@ -53,8 +51,16 @@ def normalize_features(df: pd.DataFrame) -> Tuple[pd.DataFrame, MinMaxScaler]:
     scaler = MinMaxScaler()
     scaled_values = scaler.fit_transform(df_copy.drop(columns=['label']))
     scaled_df = pd.DataFrame(scaled_values, columns=df_copy.drop(columns=['label']).columns, index=df_copy.index)
-    scaled_df['label'] = df_copy['label']
+    scaled_df['label'] = df_copy['label'].values
     return scaled_df, scaler
+
+def flip_labels(df: pd.DataFrame, flip_fraction=0.05):
+    total = len(df)
+    flip_count = int(total * flip_fraction)
+    flip_indices = np.random.choice(df.index, flip_count, replace=False)
+    df.loc[flip_indices, 'label'] = 1 - df.loc[flip_indices, 'label']
+    print(f"[DEBUG] Flipped {flip_count} labels for noise injection.")
+    return df
 
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -74,7 +80,7 @@ def main():
     normal_df = df[feature_cols].copy()
     normal_df['label'] = 0
 
-    # --- Generate attackers with overlapping trust scores ---
+    # --- Generate attackers ---
     attackers = []
     for _ in range(ATTACKER_COUNT):
         sample_user = normal_df.sample(n=1).iloc[0]
@@ -83,6 +89,9 @@ def main():
     attackers_df = pd.DataFrame(attackers)
 
     combined_df = pd.concat([normal_df, attackers_df], ignore_index=True)
+
+    # Flip 5% of labels randomly
+    combined_df = flip_labels(combined_df, flip_fraction=0.05)
 
     print("\n[DEBUG] Trust score mean by class BEFORE normalization:")
     print(combined_df.groupby('label')['trust_score'].mean())
