@@ -18,22 +18,32 @@ NUMERIC_COLS: List[str] = [
     'time_since_last_login_mins', 'day_type_code', 'ip_address_as_int',
     'ip_reputation_code', 'typing_speed_cpm', 'click_pattern_code',
     'role_code', 'scope_code', 'failed_login_attempts',
-    'historic_risk_score', 'system_mode_code'
+    'historic_risk_score', 'system_mode_code', 'trust_score'
 ]
 
 def generate_ip_spoof_attack(user_row):
     spoofed_row = user_row.copy()
+
+    # IP spoof anomaly
     spoofed_row['ip_address_as_int'] += random.randint(2000, 5000)
     spoofed_row['location_conf_radius'] += random.randint(200, 500)
     spoofed_row['time_since_last_login_mins'] = random.randint(1, 3)
+
+    # Trust score overlap (attackers not always super low)
+    spoofed_row['trust_score'] = round(random.uniform(0.2, 0.8), 3)
+
+    # Add random noise to *all* numeric features to create overlap
+    for col in NUMERIC_COLS:
+        if col in spoofed_row and col != 'trust_score':
+            noise = random.uniform(-0.1, 0.1)  # small shift
+            spoofed_row[col] = spoofed_row[col] * (1 + noise)
+
     spoofed_row['label'] = 1
     return spoofed_row
 
 def _bool_to_int(x) -> int:
-    if isinstance(x, bool): 
-        return int(x)
-    if isinstance(x, str): 
-        return 1 if x.lower() == "true" else 0
+    if isinstance(x, bool): return int(x)
+    if isinstance(x, str): return 1 if x.lower() == "true" else 0
     try:
         return int(x)
     except (ValueError, TypeError):
@@ -68,7 +78,7 @@ def main():
     normal_df = df[feature_cols].copy()
     normal_df['label'] = 0
 
-    # --- Generate attackers ---
+    # --- Generate attackers with noise ---
     attackers = []
     for _ in range(ATTACKER_COUNT):
         sample_user = normal_df.sample(n=1).iloc[0]
@@ -79,18 +89,11 @@ def main():
     # Combine normal + attacker
     combined_df = pd.concat([normal_df, attackers_df], ignore_index=True)
 
-    # --- Add trust score with overlap ---
-    combined_df['trust_score'] = np.where(
-        combined_df['label'] == 1,   # attackers
-        np.random.uniform(0.2, 0.7, size=len(combined_df)),
-        np.random.uniform(0.6, 1.0, size=len(combined_df))
-    )
+    # Check trust score overlap BEFORE normalization
+    print("\n[DEBUG] Trust score mean by class BEFORE normalization:")
+    print(combined_df.groupby('label')['trust_score'].mean())
 
-    # Debug attacker differences BEFORE normalization
-    print("\n[DEBUG] Sample attacker rows BEFORE normalization:")
-    print(attackers_df.head())
-
-    # Normalize entire dataset at once (including trust_score)
+    # Normalize entire dataset at once
     combined_df_scaled, _ = normalize_features(combined_df)
 
     # Split into train/test
