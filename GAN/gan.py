@@ -239,6 +239,30 @@ def train_gan_model(real_cont, real_cat, latent_dim, epochs=NUM_EPOCHS, batch_si
 
     return gen, disc
 
+def calculate_dynamic_trust(row):
+    """
+    Calculate a dynamic trust score based on context.
+    - Starts random, then adjusts based on known conditions.
+    """
+    trust_score = np.random.uniform(0, 1)
+
+    # Office network (example: ip_reputation_code == 1) & verified device (device_type_code == 1)
+    if row.get('ip_reputation_code') == 1 and row.get('device_type_code') == 1:
+        trust_score = max(trust_score, np.random.uniform(0.7, 1.0))
+    # Home (ip_reputation_code == 2) with verified device
+    elif row.get('ip_reputation_code') == 2 and row.get('device_type_code') == 1:
+        trust_score = max(trust_score, np.random.uniform(0.5, 0.7))
+    # New / untrusted device or IP
+    else:
+        trust_score = min(trust_score, np.random.uniform(0.0, 0.5))
+
+    # Adjust slightly based on past login success (example: location_visit_count)
+    if row.get('location_visit_count', 0) > 10:
+        trust_score = min(1.0, trust_score + 0.05)  # loyal users slightly boosted
+
+    return round(trust_score, 3)
+
+
 # --- Synthetic Data Generation Function ---
 
 def generate_synthetic_users(generator, scaler, cont_cols, num_samples=1):
@@ -320,8 +344,8 @@ def generate_synthetic_users(generator, scaler, cont_cols, num_samples=1):
             decoded_row[col] = original_features.get(col)
             # Add trust score if available for the feature in our predefined scores
             if col in FEATURE_TRUST_SCORES:
-                decoded_row[f'{col}_trust'] = FEATURE_TRUST_SCORES[col]
-        
+                decoded_row[f'{col}_trust'] = calculate_dynamic_trust(decoded_row)
+
         decoded_rows.append(decoded_row)
 
     return decoded_rows
