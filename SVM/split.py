@@ -5,11 +5,13 @@ from sklearn.model_selection import train_test_split
 import os
 import sys
 import random
+from typing import List, Tuple
 
 OUTPUT_DIR = "output"
 
-BOOLEAN_COLS = ['is_rooted', 'vpn_tor_usage']
-NUMERIC_COLS = [
+BOOLEAN_COLS: List[str] = ['is_rooted', 'vpn_tor_usage']
+
+NUMERIC_COLS: List[str] = [
     'region_tz_code', 'os_code', 'device_type_code', 'manufacturer_code',
     'gps_latitude', 'gps_longitude', 'location_conf_radius', 'location_visit_count',
     'shift_profile_code', 'session_start_epoch', 'session_duration_mins',
@@ -24,26 +26,27 @@ def generate_ip_spoof_attack(user_row):
     spoofed_row['ip_address_as_int'] += random.randint(2000, 5000)
     spoofed_row['location_conf_radius'] += random.randint(200, 500)
     spoofed_row['time_since_last_login_mins'] = random.randint(1, 3)
-    spoofed_row['trust_score'] = random.uniform(0.0, 0.4)  # Low trust for attacker
     spoofed_row['label'] = 1
     return spoofed_row
 
-def _bool_to_int(x):
-    if isinstance(x, bool): return int(x)
-    if isinstance(x, str): return 1 if x.lower() == "true" else 0
+def _bool_to_int(x) -> int:
+    if isinstance(x, bool): 
+        return int(x)
+    if isinstance(x, str): 
+        return 1 if x.lower() == "true" else 0
     try:
         return int(x)
     except (ValueError, TypeError):
         return 0
 
-def normalize_features(df):
+def normalize_features(df: pd.DataFrame) -> Tuple[pd.DataFrame, MinMaxScaler]:
     df_copy = df.copy()
     for col in BOOLEAN_COLS:
         if col in df_copy.columns:
             df_copy[col] = df_copy[col].apply(_bool_to_int)
     scaler = MinMaxScaler()
     scaled_values = scaler.fit_transform(df_copy.drop(columns=['label']))
-    scaled_df = pd.DataFrame(scaled_values, columns=df_copy.drop(columns=['label']).columns)
+    scaled_df = pd.DataFrame(scaled_values, columns=df_copy.drop(columns=['label']).columns, index=df_copy.index)
     scaled_df['label'] = df_copy['label']
     return scaled_df, scaler
 
@@ -64,9 +67,8 @@ def main():
     feature_cols = [col for col in NUMERIC_COLS + BOOLEAN_COLS if col in df.columns]
     normal_df = df[feature_cols].copy()
     normal_df['label'] = 0
-    normal_df['trust_score'] = [random.uniform(0.7, 1.0) for _ in range(len(normal_df))]  # High trust normal
 
-    # Generate attackers
+    # --- Generate attackers ---
     attackers = []
     for _ in range(ATTACKER_COUNT):
         sample_user = normal_df.sample(n=1).iloc[0]
@@ -77,9 +79,18 @@ def main():
     # Combine normal + attacker
     combined_df = pd.concat([normal_df, attackers_df], ignore_index=True)
 
+    # --- Add trust score with overlap ---
+    combined_df['trust_score'] = np.where(
+        combined_df['label'] == 1,   # attackers
+        np.random.uniform(0.2, 0.7, size=len(combined_df)),
+        np.random.uniform(0.6, 1.0, size=len(combined_df))
+    )
+
+    # Debug attacker differences BEFORE normalization
     print("\n[DEBUG] Sample attacker rows BEFORE normalization:")
     print(attackers_df.head())
 
+    # Normalize entire dataset at once (including trust_score)
     combined_df_scaled, _ = normalize_features(combined_df)
 
     # Split into train/test
