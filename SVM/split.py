@@ -9,7 +9,9 @@ from typing import List, Tuple
 
 OUTPUT_DIR = "output"
 
-BOOLEAN_COLS: List[str] = ['is_rooted', 'vpn_tor_usage']
+# Add 'overseas_ip' so it flows through preprocessing and into the model
+BOOLEAN_COLS: List[str] = ['is_rooted', 'vpn_tor_usage', 'overseas_ip']
+
 NUMERIC_COLS: List[str] = [
     'region_tz_code', 'os_code', 'device_type_code', 'manufacturer_code',
     'gps_latitude', 'gps_longitude', 'location_conf_radius', 'location_visit_count',
@@ -20,20 +22,49 @@ NUMERIC_COLS: List[str] = [
     'historic_risk_score', 'system_mode_code'
 ]
 
+# U.S. region boxes (same as generate.py) for location-based overseas flag
+US_BOXES = [
+    # 1.1
+    {"lat_min": 25.0, "lat_max": 47.0, "lon_min": -84.0,  "lon_max": -67.0},
+    # 1.2
+    {"lat_min": 30.0, "lat_max": 45.0, "lon_min": -101.0, "lon_max": -90.0},
+    # 1.3
+    {"lat_min": 32.0, "lat_max": 48.0, "lon_min": -125.0, "lon_max": -114.0},
+]
+
+def in_any_us_box(lat: float, lon: float) -> bool:
+    """Return True if (lat, lon) is inside any of the known U.S. boxes."""
+    if pd.isna(lat) or pd.isna(lon):
+        return False
+    for b in US_BOXES:
+        if (b["lat_min"] <= lat <= b["lat_max"]) and (b["lon_min"] <= lon <= b["lon_max"]):
+            return True
+    return False
+
 def generate_ip_spoof_attack(user_row):
     spoofed_row = user_row.copy()
+    # make the network look off
     spoofed_row['ip_address_as_int'] += random.randint(2000, 5000)
     spoofed_row['location_conf_radius'] += random.randint(200, 500)
     spoofed_row['time_since_last_login_mins'] = random.randint(1, 3)
 
-    # 70% low trust, 30% higher trust (to simulate camouflage)
-    if random.random() < 0.7:
-        spoofed_row['trust_score'] = random.uniform(0.0, 0.5)
+    # force stronger attacker signals (still plausible)
+    # vpn/tor: very likely on
+    spoofed_row['vpn_tor_usage'] = 1
+    # ip rep: skew to bad (3) most of the time, sometimes 2
+    spoofed_row['ip_reputation_code'] = 3 if random.random() < 0.7 else 2
+    # overseas: attackers often appear from abroad
+    spoofed_row['overseas_ip'] = 1 if random.random() < 0.6 else 0
+
+    # trust: 95% low, 5% “camouflage” in a tiny overlap band
+    if random.random() < 0.95:
+        spoofed_row['trust_score'] = random.uniform(0.0, 0.35)
     else:
-        spoofed_row['trust_score'] = random.uniform(0.7, .9)
+        spoofed_row['trust_score'] = random.uniform(0.65, 0.70)
 
     spoofed_row['label'] = 1
     return spoofed_row
+
 
 def _bool_to_int(x) -> int:
     if isinstance(x, bool): return int(x)
@@ -54,7 +85,7 @@ def normalize_features(df: pd.DataFrame) -> Tuple[pd.DataFrame, MinMaxScaler]:
     scaled_df['label'] = df_copy['label'].values
     return scaled_df, scaler
 
-def flip_labels(df: pd.DataFrame, flip_fraction=0.03):
+def flip_labels(df: pd.DataFrame, flip_fraction=0.01):
     total = len(df)
     flip_count = int(total * flip_fraction)
     flip_indices = np.random.choice(df.index, flip_count, replace=False)
@@ -67,6 +98,13 @@ def adjust_trust_scores(df: pd.DataFrame):
     df.loc[df['label'] == 1, 'trust_score'] *= np.random.uniform(0.7, 0.9)
     df.loc[df['label'] == 0, 'trust_score'] *= np.random.uniform(1.0, 1.1)
     return df
+
+def derive_overseas_flag(df: pd.DataFrame) -> pd.Series:
+    """
+    Location-based 'overseas' flag:
+    overseas_ip = 1 if (gps_latitude, gps_longitude) is outside all U.S. boxes, else 0.
+    """
+    return (~df.apply(lambda r: in_any_us_box(r.get('gps_latitude'), r.get('gps_longitude')), axis=1)).astype(int)
 
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -82,6 +120,9 @@ def main():
 
     df = pd.read_csv(data_path)
 
+    # --- Compute overseas flag on the *raw* data ---
+    df['overseas_ip'] = derive_overseas_flag(df)
+
     feature_cols = [col for col in NUMERIC_COLS + BOOLEAN_COLS + ['trust_score'] if col in df.columns]
     normal_df = df[feature_cols].copy()
     normal_df['label'] = 0
@@ -96,10 +137,20 @@ def main():
 
     combined_df = pd.concat([normal_df, attackers_df], ignore_index=True)
 
+    # Recompute 'overseas_ip' if GPS changed upstream (safety); here we keep GPS untouched,
+    # so we only ensure the column exists (attackers_df inherits it from sample_user).
+    if 'overseas_ip' not in combined_df.columns:
+        combined_df['overseas_ip'] = derive_overseas_flag(combined_df)
+
+    # --- Enforce rule: overseas => trust <= 0.20 (automatic low) ---
+    if 'trust_score' in combined_df.columns:
+        mask_overseas = combined_df['overseas_ip'] == 1
+        combined_df.loc[mask_overseas, 'trust_score'] = np.minimum(combined_df.loc[mask_overseas, 'trust_score'], 0.20)
+
     # Inject slight label noise
     combined_df = flip_labels(combined_df, flip_fraction=0.02)
 
-    # Adjust trust scores slightly for realism
+    # Adjust trust scores slightly for realism (after noise injection is fine)
     combined_df = adjust_trust_scores(combined_df)
 
     print("\n[DEBUG] Trust score mean by class BEFORE normalization:")
