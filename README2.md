@@ -8,13 +8,10 @@ It generates synthetic user behavior, augments data with GAN-produced samples an
 ## End-to-end Pipeline
 
 generate.py → sample_data.csv
-↓
 
 gan.py → output_with_trust_scores.csv
-↓
 
 split.py → output/train.csv + output/test.csv (with attackers)
-↓
 
 svm.py → models/svm_model.sav + results/test_result_svm.csv + ROC/EER visualization
 
@@ -24,14 +21,16 @@ svm.py → models/svm_model.sav + results/test_result_svm.csv + ROC/EER visualiz
 
 ### `generate.py` — Data generation
 
-- **Purpose:** Simulate realistic login activity for many users across regions, device types, and time windows.
-- **Key features produced:**
+**Purpose:** Simulate realistic login activity for many users across regions, device types, and time windows.
+
+**Key features produced:**
   - region/timezone, GPS (lat/lon), home/work location simulation
   - OS/manufacturer/device type codes
   - session start epoch, session duration, time since last login
   - `ip_address_as_int` (IP converted to integer), `ip_reputation_code`
   - `vpn_tor` usage, typing speed, click pattern, role/scope codes, `historic_risk_score`
-- **Output:** `sample_data.csv`
+
+**Output:** `sample_data.csv`
 - **Usage:**
   ```bash
   python generate.py <num_users> <rows_per_user>
