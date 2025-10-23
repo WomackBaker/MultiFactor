@@ -43,11 +43,11 @@ svm.py → models/svm_model.sav + results/test_result_svm.csv + ROC/EER visualiz
 **Purpose:** Train a PyTorch GAN to generate additional realistic continuous/categorical samples and produce dynamic trust scores per sample.
 
 **Design highlights:**
-•	Generator outputs continuous features + categorical logits (e.g., region_tz_code).
-•	Discriminator distinguishes real vs. fake on continuous features.
-•	Preprocessing: categorical mappings, boolean conversion, MinMax scaling.
-•	FEATURE_TRUST_SCORES maps features → base trust weight; calculate_dynamic_trust adjusts trust based on context (ip reputation, device type, visit count).
-•	After generating samples, inverse-scaling and mapping restores human-readable values, and trust scores are interleaved into output columns.
+- Generator outputs continuous features + categorical logits (e.g., region_tz_code).
+- Discriminator distinguishes real vs. fake on continuous features.
+- Preprocessing: categorical mappings, boolean conversion, MinMax scaling.
+- FEATURE_TRUST_SCORES maps features → base trust weight; calculate_dynamic_trust adjusts trust based on context (ip reputation, device type, visit count).
+- After generating samples, inverse-scaling and mapping restores human-readable values, and trust scores are interleaved into output columns.
 
 **Outputs:** output_with_trust_scores.csv and saved snapshots in ./saved/
 
@@ -58,7 +58,8 @@ python gan.py <num_samples>
 python gan.py 500
 ```
 ---
-split.py — Attack injection & dataset prep
+
+### split.py — Attack injection & dataset prep
 •	Purpose: Inject IP-spoofing attacks into the dataset (modifies IPs, location radius, login timing), add labels, normalize, and split into train/test sets.
 •	Attack simulation logic:
 o	Select a normal sample → mutate:
