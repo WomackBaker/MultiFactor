@@ -18,6 +18,7 @@ svm.py → models/svm_model.sav + results/test_result_svm.csv + ROC/EER visualiz
 ## Files & Purpose
 
 ### `generate.py` — Data generation
+
 - **Purpose:** Simulate realistic login activity for many users across regions, device types, and time windows.
 - **Key features produced:**
   - region/timezone, GPS (lat/lon), home/work location simulation
@@ -80,7 +81,7 @@ o	Saves test scores & labels to results/test_result_svm.csv.
 o	Shows ROC plot.
 •	Usage:
 python svm.py
-# Then choose mode: (q) Quick or (f) Full
+Then choose mode: (q) Quick or (f) Full
 ---
 Outputs Summary
 •	sample_data.csv — raw synthetic login records (from generate.py)
@@ -91,15 +92,12 @@ Outputs Summary
 •	ROC/EER plot displayed by svm.py
 ---
 
-Full Run Example
-Go to GenerateData folder
-python generate.py 100 1000
-# creates sample_data.csv
-Go to GAN folder
-python gan.py 500
-# creates output_with_trust_scores.csv
-Go to SVM folder
-python split.py 500 output_with_trust_scores.csv
-# creates output/train.csv and output/test.csv
-python svm.py
-# choose 'q' or 'f' when prompted
+# Full Run Example
+1. Go to GenerateData folder
+2. python generate.py 100 1000
+3. Go to GAN folder
+4. python gan.py 500
+5. Go to SVM folder
+6. python split.py 500 output_with_trust_scores.csv
+7. python svm.py
+8. choose 'q' or 'f' when prompted
