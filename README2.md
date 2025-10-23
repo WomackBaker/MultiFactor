@@ -6,13 +6,18 @@ It generates synthetic user behavior, augments data with GAN-produced samples an
 ---
 
 ## End-to-end Pipeline
+
 generate.py → sample_data.csv
 ↓
+
 gan.py → output_with_trust_scores.csv
 ↓
+
 split.py → output/train.csv + output/test.csv (with attackers)
 ↓
+
 svm.py → models/svm_model.sav + results/test_result_svm.csv + ROC/EER visualization
+
 ---
 
 ## Files & Purpose
