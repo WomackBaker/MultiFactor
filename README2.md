@@ -79,12 +79,12 @@ Attack simulation logic:
 **Outputs:** output/train.csv and output/test.csv
 
 **Usage:**
-
+  ```bash
 python  split.py <attacker_count> <path_to_data>
 
 Example:
 python split.py 500 output_with_trust_scores.csv
-
+```
 ---
 
 ### svm.py — Model training & evaluation
@@ -101,9 +101,10 @@ python split.py 500 output_with_trust_scores.csv
   4. Shows ROC plot.
 
 **Usage:**
+```bash
 python svm.py
 Then choose mode: (q) Quick or (f) Full
-
+```
 ---
 
 # Full Run Example
