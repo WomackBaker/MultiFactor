@@ -106,17 +106,6 @@ Then choose mode: (q) Quick or (f) Full
 
 ---
 
-**Outputs Summary**
-
-sample_data.csv — raw synthetic login records (from generate.py)
-output_with_trust_scores.csv — GAN-augmented data including trust scores (from gan.py)
-output/train.csv, output/test.csv — normalized training and testing data with attacker labels (from split.py)
-models/svm_model.sav — trained SVM model (from svm.py)
-results/test_result_svm.csv — model test scores and labels
-ROC/EER plot displayed by svm.py
-
----
-
 # Full Run Example
 1. Go to GenerateData folder
 2. python generate.py 100 1000
