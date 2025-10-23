@@ -60,48 +60,61 @@ python gan.py 500
 ---
 
 ### split.py — Attack injection & dataset prep
-•	Purpose: Inject IP-spoofing attacks into the dataset (modifies IPs, location radius, login timing), add labels, normalize, and split into train/test sets.
-•	Attack simulation logic:
-o	Select a normal sample → mutate:
-	ip_address_as_int += random.randint(2000, 5000) (simulate different IP)
-	location_conf_radius += random.randint(200, 500) (larger location uncertainty)
-	time_since_last_login_mins set to small value to simulate abnormal rapid logins
-o	Assign label = 1 for spoofed entries.
-o	Set trust_score low (0.0–0.5) 70% of the time, or moderate-high (0.7–0.9) 30% to simulate camouflage.
-•	Realism enhancements:
-o	Flip a small fraction of labels (~2–3%) to inject noise.
-o	Slightly adjust trust scores (attackers ↓, normals ↑).
-o	Normalize features using MinMaxScaler.
-o	Stratified train/test split (70/30).
-•	Outputs:
-o	output/train.csv
-o	output/test.csv
-•	Usage:
+
+**Purpose:** Inject IP-spoofing attacks into the dataset (modifies IPs, location radius, login timing), add labels, normalize, and split into train/test sets.
+
+Attack simulation logic:
+- Select a normal sample → mutate:
+- 1. ip_address_as_int += random.randint(2000, 5000) (simulate different IP)
+  2. location_conf_radius += random.randint(200, 500) (larger location uncertainty)
+  3. time_since_last_login_mins set to small value to simulate abnormal rapid logins
+  4. Assign label = 1 for spoofed entries.
+  5. Set trust_score low (0.0–0.5) 70% of the time, or moderate-high (0.7–0.9) 30% to simulate camouflage.
+- Realism enhancements:
+- 1. Flip a small fraction of labels (~2–3%) to inject noise.
+  2. Slightly adjust trust scores (attackers ↓, normals ↑).
+  3. Normalize features using MinMaxScaler.
+  4. Stratified train/test split (70/30).
+
+**Outputs:** output/train.csv and output/test.csv
+
+**Usage:**
+
 python  split.py <attacker_count> <path_to_data>
-# Example:
+
+Example:
 python split.py 500 output_with_trust_scores.csv
+
 ---
-svm.py — Model training & evaluation
-•	Purpose: Train an SVM to detect spoofed sessions and evaluate using ROC / EER.
-•	Modes:
-o	q — Quick (default) — fixed SVM hyperparameters for fast training
-o	f — Full GridSearch — searches C and gamma over a small grid with cross-validation (slower)
-•	Evaluation metrics & outputs:
-o	Computes ROC curve, AUC, EER, and threshold corresponding to EER.
-o	Saves model to models/svm_model.sav (pickle).
-o	Saves test scores & labels to results/test_result_svm.csv.
-o	Shows ROC plot.
-•	Usage:
+
+### svm.py — Model training & evaluation
+
+**Purpose:** Train an SVM to detect spoofed sessions and evaluate using ROC / EER.
+
+**Modes:**
+- q — Quick (default) — fixed SVM hyperparameters for fast training
+- f — Full GridSearch — searches C and gamma over a small grid with cross-validation (slower)
+- Evaluation metrics & outputs:
+  1. Computes ROC curve, AUC, EER, and threshold corresponding to EER.
+  2. Saves model to models/svm_model.sav (pickle).
+  3. Saves test scores & labels to results/test_result_svm.csv.
+  4. Shows ROC plot.
+
+**Usage:**
 python svm.py
 Then choose mode: (q) Quick or (f) Full
+
 ---
-Outputs Summary
-•	sample_data.csv — raw synthetic login records (from generate.py)
-•	output_with_trust_scores.csv — GAN-augmented data including trust scores (from gan.py)
-•	output/train.csv, output/test.csv — normalized training and testing data with attacker labels (from split.py)
-•	models/svm_model.sav — trained SVM model (from svm.py)
-•	results/test_result_svm.csv — model test scores and labels
-•	ROC/EER plot displayed by svm.py
+
+**Outputs Summary**
+
+sample_data.csv — raw synthetic login records (from generate.py)
+output_with_trust_scores.csv — GAN-augmented data including trust scores (from gan.py)
+output/train.csv, output/test.csv — normalized training and testing data with attacker labels (from split.py)
+models/svm_model.sav — trained SVM model (from svm.py)
+results/test_result_svm.csv — model test scores and labels
+ROC/EER plot displayed by svm.py
+
 ---
 
 # Full Run Example
