@@ -13,7 +13,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--users', type=int, default=100)
     parser.add_argument('--rows', type=int, default=1000)
-    parser.add_argument('--samples', type=int, default=10000)
+    parser.add_argument('--samples', type=int, default=12000)
     parser.add_argument('--attackers', type=int, default=2000)
     parser.add_argument('--data', type=str, default='../GAN/output_with_trust_scores.csv',
                         help='Path to the input data file for SVM')
